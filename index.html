@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Luxe Parfums — Fragancias exclusivas importadas. Dior, Chanel, YSL, Paco Rabanne y más. 100% originales. Envíos a todo el país." />
+  <meta name="keywords" content="perfumes, fragancias, importados, Dior, Chanel, YSL, Paco Rabanne, perfumería online, Argentina, nicho, árabe" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Luxe Parfums | Fragancias Premium" />
+  <meta property="og:description" content="Fragancias exclusivas para cada ocasión. Descubrí el aroma que te define." />
+  <meta property="og:type" content="website" />
+  <title>Bruma | Fragancias Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="cart.css" />
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" role="navigation" aria-label="Navegación principal">
+
+        <a href="#inicio" class="logo" aria-label="Luxe Parfums - Inicio">
+          <span class="logo-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <path d="M10 4h6M11 4v3M15 4v3M9 8h8l1.5 4v10a2 2 0 01-2 2H9.5a2 2 0 01-2-2V12L9 8z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.5 16h7M9.5 19.5h4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="logo-name">Bruma</span>
+        </a>
+
+        <ul class="nav-menu" id="navMenu" role="list">
+          <li><a href="#inicio"     class="nav-link">Inicio</a></li>
+          <li><a href="#categorias" class="nav-link">Categorías</a></li>
+          <li><a href="#productos"  class="nav-link">Productos</a></li>
+          <li><a href="#nosotros"   class="nav-link">Nosotros</a></li>
+          <li><a href="#contacto"   class="nav-link">Contacto</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="nav-cart-btn" id="navCartBtn" aria-label="Ver carrito">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61H19a2 2 0 001.99-1.61L23 6H6"/>
+            </svg>
+            <span class="nav-cart-badge" id="navCartBadge" aria-hidden="true">0</span>
+          </button>
+          <a href="admin.html" class="nav-admin" aria-label="Panel administrador" title="Admin">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/>
+            </svg>
+          </a>
+          <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMenu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="inicio" aria-label="Inicio">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-orb hero-orb--1"></div>
+      <div class="hero-orb hero-orb--2"></div>
+      <div class="hero-orb hero-orb--3"></div>
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-split">
+
+        <div class="hero-content">
+          <span class="hero-eyebrow animate-up">Perfumería Premium · Exclusivo · Importado</span>
+          <h1 class="hero-title animate-up">
+            Fragancias que<br><em>dejan huella</em>
+          </h1>
+          <p class="hero-sub animate-up">
+            Descubrí perfumes exclusivos para cada ocasión.<br>
+            Las marcas más prestigiosas del mundo, 100% originales.
+          </p>
+          <div class="hero-ctas animate-up">
+            <a href="#productos" class="btn btn-gold btn-lg">Ver catálogo</a>
+            <a href="#categorias" class="btn btn-ghost btn-lg">Explorar categorías</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="bottle-scene">
+            <div class="bottle-float">
+              <div class="bottle-3d" id="bottle3d">
+
+                <!-- Cap: W=64 H=32 D=46 -->
+                <div class="b-cap b-piece">
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                </div>
+
+                <!-- Collar: W=52 H=14 D=38 -->
+                <div class="b-collar b-piece">
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                </div>
+
+                <!-- Neck: W=34 H=58 D=26 -->
+                <div class="b-neck b-piece">
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                </div>
+
+                <!-- Body: W=112 H=196 D=72 -->
+                <div class="b-body b-piece">
+                  <div class="bf">
+                    <div class="b-label">
+                      <div class="b-label-mark">✦</div>
+                      <div class="b-label-brand">BRUMA</div>
+                      <div class="b-label-rule"></div>
+                      <div class="b-label-sub">PARFUMS</div>
+                      <div class="b-label-num">N° 01</div>
+                    </div>
+                  </div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                  <div class="bf"></div>
+                </div>
+
+              </div>
+            </div>
+            <div class="b-glow" aria-hidden="true"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+
+  <!-- ==================== CATEGORÍAS ==================== -->
+  <section class="section section--alt" id="categorias">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-eyebrow">Colecciones</span>
+        <h2 class="section-title">Encuentra tu<br><em>fragancia ideal</em></h2>
+        <p class="section-desc">Cada categoría, una experiencia sensorial única.</p>
+      </header>
+
+      <div class="cat-grid">
+
+        <div class="cat-card cat--masculinos reveal" data-cat="masculinos" role="button" tabindex="0">
+          <div class="cat-bg" aria-hidden="true"></div>
+          <div class="cat-visual" aria-hidden="true">
+            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
+              <rect x="16" y="30" width="32" height="48" rx="6" fill="rgba(201,169,110,0.12)" stroke="rgba(201,169,110,0.45)" stroke-width="1.5"/>
+              <rect x="24" y="18" width="16" height="14" rx="3" fill="rgba(201,169,110,0.18)" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
+              <rect x="29" y="12" width="6" height="8" rx="2" fill="rgba(201,169,110,0.25)" stroke="rgba(201,169,110,0.55)" stroke-width="1.2"/>
+              <line x1="32" y1="7" x2="32" y2="12" stroke="rgba(201,169,110,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+              <rect x="22" y="52" width="20" height="18" rx="2" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="1"/>
+              <line x1="26" y1="59" x2="38" y2="59" stroke="rgba(201,169,110,0.4)" stroke-width="1" stroke-linecap="round"/>
+              <line x1="26" y1="63" x2="33" y2="63" stroke="rgba(201,169,110,0.25)" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cat-info">
+            <h3>Masculinos</h3>
+            <p>Madera, cuero y notas amaderadas</p>
+            <span class="cat-cta">Explorar →</span>
+          </div>
+        </div>
+
+        <div class="cat-card cat--femeninos reveal" data-cat="femeninos" role="button" tabindex="0">
+          <div class="cat-bg" aria-hidden="true"></div>
+          <div class="cat-visual" aria-hidden="true">
+            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
+              <ellipse cx="32" cy="62" rx="20" ry="24" fill="rgba(201,169,110,0.10)" stroke="rgba(201,169,110,0.45)" stroke-width="1.5"/>
+              <rect x="27" y="22" width="10" height="20" rx="3" fill="rgba(201,169,110,0.18)" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
+              <ellipse cx="32" cy="20" rx="5" ry="6" fill="rgba(201,169,110,0.22)" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
+              <ellipse cx="32" cy="62" rx="11" ry="13" fill="none" stroke="rgba(201,169,110,0.22)" stroke-width="1"/>
+              <line x1="27" y1="62" x2="37" y2="62" stroke="rgba(201,169,110,0.3)" stroke-width="0.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cat-info">
+            <h3>Femeninos</h3>
+            <p>Floral, frutal y oriental</p>
+            <span class="cat-cta">Explorar →</span>
+          </div>
+        </div>
+
+        <div class="cat-card cat--unisex reveal" data-cat="unisex" role="button" tabindex="0">
+          <div class="cat-bg" aria-hidden="true"></div>
+          <div class="cat-visual" aria-hidden="true">
+            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
+              <rect x="12" y="22" width="40" height="56" rx="8" fill="rgba(201,169,110,0.10)" stroke="rgba(201,169,110,0.45)" stroke-width="1.5"/>
+              <rect x="21" y="10" width="22" height="14" rx="3" fill="rgba(201,169,110,0.16)" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
+              <circle cx="32" cy="7" r="4" fill="rgba(201,169,110,0.24)" stroke="rgba(201,169,110,0.55)" stroke-width="1.2"/>
+              <rect x="19" y="42" width="26" height="24" rx="3" fill="none" stroke="rgba(201,169,110,0.28)" stroke-width="1"/>
+              <line x1="23" y1="51" x2="41" y2="51" stroke="rgba(201,169,110,0.38)" stroke-width="1" stroke-linecap="round"/>
+              <line x1="23" y1="57" x2="35" y2="57" stroke="rgba(201,169,110,0.22)" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cat-info">
+            <h3>Unisex</h3>
+            <p>Para todos los géneros y momentos</p>
+            <span class="cat-cta">Explorar →</span>
+          </div>
+        </div>
+
+        <div class="cat-card cat--importados reveal" data-cat="importados" role="button" tabindex="0">
+          <div class="cat-bg" aria-hidden="true"></div>
+          <div class="cat-visual" aria-hidden="true">
+            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
+              <rect x="10" y="20" width="44" height="58" rx="4" fill="rgba(201,169,110,0.09)" stroke="rgba(201,169,110,0.42)" stroke-width="1.5"/>
+              <rect x="18" y="8" width="28" height="14" rx="3" fill="rgba(201,169,110,0.16)" stroke="rgba(201,169,110,0.48)" stroke-width="1.5"/>
+              <circle cx="32" cy="5" r="4" fill="rgba(201,169,110,0.26)" stroke="rgba(201,169,110,0.56)" stroke-width="1.2"/>
+              <path d="M18 38 Q32 30 46 38" stroke="rgba(201,169,110,0.38)" stroke-width="1" fill="none" stroke-linecap="round"/>
+              <line x1="14" y1="50" x2="50" y2="50" stroke="rgba(201,169,110,0.28)" stroke-width="1"/>
+              <line x1="18" y1="60" x2="46" y2="60" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+              <line x1="20" y1="68" x2="38" y2="68" stroke="rgba(201,169,110,0.15)" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="cat-info">
+            <h3>Importados</h3>
+            <p>Europa, EE.UU. y Asia</p>
+            <span class="cat-cta">Explorar →</span>
+          </div>
+        </div>
+
+        <div class="cat-card cat--arabe reveal" data-cat="arabe" role="button" tabindex="0">
+          <div class="cat-bg" aria-hidden="true"></div>
+          <div class="cat-visual" aria-hidden="true">
+            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
+              <path d="M32 8 L46 26 L46 74 Q32 82 18 74 L18 26 Z" fill="rgba(201,169,110,0.11)" stroke="rgba(201,169,110,0.45)" stroke-width="1.5"/>
+              <path d="M22 26 L42 26" stroke="rgba(201,169,110,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="32" cy="8" r="5" fill="rgba(201,169,110,0.24)" stroke="rgba(201,169,110,0.58)" stroke-width="1.2"/>
+              <path d="M24 46 Q32 38 40 46 Q32 54 24 46Z" fill="rgba(201,169,110,0.18)" stroke="rgba(201,169,110,0.38)" stroke-width="1"/>
+              <line x1="26" y1="62" x2="38" y2="62" stroke="rgba(201,169,110,0.28)" stroke-width="1" stroke-linecap="round"/>
+              <line x1="28" y1="68" x2="36" y2="68" stroke="rgba(201,169,110,0.18)" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cat-info">
+            <h3>Árabe</h3>
+            <p>Oud, ámbar y especias orientales</p>
+            <span class="cat-cta">Explorar →</span>
+          </div>
+        </div>
+
+        <div class="cat-card cat--nicho reveal" data-cat="nicho" role="button" tabindex="0">
+          <div class="cat-bg" aria-hidden="true"></div>
+          <div class="cat-visual" aria-hidden="true">
+            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
+              <rect x="21" y="22" width="22" height="56" rx="4" fill="rgba(201,169,110,0.11)" stroke="rgba(201,169,110,0.45)" stroke-width="1.5"/>
+              <rect x="25" y="10" width="14" height="14" rx="3" fill="rgba(201,169,110,0.18)" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
+              <circle cx="32" cy="7" r="4" fill="rgba(201,169,110,0.28)" stroke="rgba(201,169,110,0.58)" stroke-width="1.2"/>
+              <path d="M13 32 H21 M43 32 H51" stroke="rgba(201,169,110,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M15 40 H21 M43 40 H49" stroke="rgba(201,169,110,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="26" y1="54" x2="38" y2="54" stroke="rgba(201,169,110,0.35)" stroke-width="1" stroke-linecap="round"/>
+              <line x1="26" y1="61" x2="33" y2="61" stroke="rgba(201,169,110,0.22)" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cat-info">
+            <h3>Nicho</h3>
+            <p>Perfumería artesanal y exclusiva</p>
+            <span class="cat-cta">Explorar →</span>
+          </div>
+        </div>
+
+        <div class="cat-card cat--sets reveal" data-cat="sets" role="button" tabindex="0">
+          <div class="cat-bg" aria-hidden="true"></div>
+          <div class="cat-visual" aria-hidden="true">
+            <svg class="cat-svg" viewBox="0 0 80 90" fill="none">
+              <rect x="6" y="28" width="26" height="44" rx="4" fill="rgba(201,169,110,0.09)" stroke="rgba(201,169,110,0.4)" stroke-width="1.5"/>
+              <rect x="13" y="16" width="12" height="14" rx="2" fill="rgba(201,169,110,0.16)" stroke="rgba(201,169,110,0.44)" stroke-width="1.5"/>
+              <circle cx="19" cy="13" r="3.5" fill="rgba(201,169,110,0.24)" stroke="rgba(201,169,110,0.52)" stroke-width="1"/>
+              <rect x="38" y="33" width="24" height="39" rx="4" fill="rgba(201,169,110,0.11)" stroke="rgba(201,169,110,0.44)" stroke-width="1.5"/>
+              <rect x="44" y="20" width="12" height="15" rx="2" fill="rgba(201,169,110,0.18)" stroke="rgba(201,169,110,0.48)" stroke-width="1.5"/>
+              <circle cx="50" cy="17" r="3" fill="rgba(201,169,110,0.28)" stroke="rgba(201,169,110,0.56)" stroke-width="1"/>
+              <path d="M6 55 Q40 64 74 55" stroke="rgba(201,169,110,0.35)" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
+            </svg>
+          </div>
+          <div class="cat-info">
+            <h3>Sets y Regalos</h3>
+            <p>Packaging especial para regalar</p>
+            <span class="cat-cta">Explorar →</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== PRODUCTOS ==================== -->
+  <section class="section" id="productos">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-eyebrow">Catálogo completo</span>
+        <h2 class="section-title">Nuestras <em>fragancias</em></h2>
+        <p class="section-desc">Explorá toda la colección y encontrá el perfume que te define.</p>
+      </header>
+
+      <div class="prod-controls reveal">
+        <div class="prod-search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="search" id="searchInput" class="prod-search" placeholder="Buscar perfume, marca..." aria-label="Buscar productos" autocomplete="off" />
+          <button class="search-clear" id="searchClear" aria-label="Limpiar" hidden>✕</button>
+        </div>
+        <div class="prod-filters-row">
+          <div class="prod-filtros" id="prodFiltros"></div>
+          <div class="prod-selects">
+            <select id="filterMarca" class="prod-select" aria-label="Filtrar por marca">
+              <option value="">Todas las marcas</option>
+            </select>
+            <select id="filterOrden" class="prod-select" aria-label="Ordenar">
+              <option value="">Ordenar por</option>
+              <option value="precio-asc">Menor precio</option>
+              <option value="precio-desc">Mayor precio</option>
+              <option value="nombre-asc">A — Z</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="productos-grid" id="mainProductosGrid">
+        <div class="productos-empty" id="productosEmpty">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <path d="M9 3h6M10 3v2M14 3v2M8 7h8l1 3v9a2 2 0 01-2 2H9a2 2 0 01-2-2V10l1-3z"/>
+            <path d="M9 14h6M9 17h4"/>
+          </svg>
+          <p>Los productos se cargan desde el panel admin.</p>
+          <a href="admin.html" class="link-gold">Ir al panel admin →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== NOSOTROS ==================== -->
+  <section class="section section--alt nosotros" id="nosotros">
+    <div class="container">
+      <div class="nosotros-inner">
+
+        <div class="nosotros-content reveal">
+          <span class="section-eyebrow">Nuestra historia</span>
+          <h2 class="section-title">Pasión por las<br><em>fragancias únicas</em></h2>
+          <p class="nosotros-lead">En Bruma seleccionamos cada fragancia con criterio, pasión y un profundo conocimiento del arte perfumístico. Somos especialistas en fragancias importadas, de nicho y orientales.</p>
+          <p>Nuestro equipo recorre el mundo para traerte los perfumes más exclusivos. Cada producto es 100% original, importado directamente de las casas de moda y perfumerías más reconocidas del globo.</p>
+          <div class="nosotros-valores">
+            <div class="valor reveal">
+              <div class="valor-icon" aria-hidden="true">◈</div>
+              <div>
+                <strong>100% Originales</strong>
+                <p>Todos nuestros perfumes son auténticos y verificados</p>
+              </div>
+            </div>
+            <div class="valor reveal">
+              <div class="valor-icon" aria-hidden="true">◈</div>
+              <div>
+                <strong>Asesoramiento Premium</strong>
+                <p>Te ayudamos a encontrar la fragancia perfecta para vos</p>
+              </div>
+            </div>
+            <div class="valor reveal">
+              <div class="valor-icon" aria-hidden="true">◈</div>
+              <div>
+                <strong>Envíos a todo el país</strong>
+                <p>Packaging cuidado y coordinado a domicilio</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- ==================== TESTIMONIOS ==================== -->
+  <section class="section testimonios" id="testimonios">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-eyebrow">Testimonios</span>
+        <h2 class="section-title">Lo que dicen<br><em>nuestros clientes</em></h2>
+      </header>
+      <div class="testimonios-grid">
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== FAQ ==================== -->
+  <section class="section section--alt faq" id="faq">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-eyebrow">FAQ</span>
+        <h2 class="section-title">Preguntas<br><em>frecuentes</em></h2>
+      </header>
+      <div class="faq-list reveal">
+
+        <details class="faq-item">
+          <summary class="faq-q">¿Los perfumes son 100% originales?</summary>
+          <div class="faq-a">Sí, absolutamente. Todos nuestros perfumes son 100% originales e importados directamente de sus casas de origen o distribuidores oficiales. Nunca vendemos réplicas ni imitaciones.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">¿Cómo hago mi pedido?</summary>
+          <div class="faq-a">Podés agregar los productos al carrito y enviarnos el pedido por WhatsApp. Un asesor te confirmará la disponibilidad, precio final y coordinaremos el envío o retiro.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">¿Hacen envíos a todo el país?</summary>
+          <div class="faq-a">Sí, enviamos a todo el territorio argentino. Los envíos se realizan por correo o mensajería privada. El costo y tiempo de entrega varía según la zona. Consultanos por WhatsApp.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">¿Aceptan pagos en cuotas?</summary>
+          <div class="faq-a">Sí, aceptamos transferencia bancaria, efectivo y tarjetas de crédito en cuotas. Consultanos para conocer la disponibilidad de cuotas sin interés según el producto.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">¿Puedo cambiar o devolver un producto?</summary>
+          <div class="faq-a">Si el producto llega en mal estado o no corresponde a tu pedido, lo cambiamos sin costo. Abrimos cada caso en particular y buscamos la mejor solución para vos.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">¿Tienen precios mayoristas?</summary>
+          <div class="faq-a">Sí, trabajamos con revendedores y distribuidores. Contactanos por WhatsApp para conocer nuestros precios mayoristas y las condiciones especiales de venta por volumen.</div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== CONTACTO ==================== -->
+  <section class="section contacto" id="contacto">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-eyebrow">Escribinos</span>
+        <h2 class="section-title">¿Tenés alguna <em>consulta?</em></h2>
+        <p class="section-desc">Completá el formulario o contactanos por WhatsApp. Respondemos rápido.</p>
+      </header>
+
+      <div class="contacto-inner">
+
+        <form class="contacto-form reveal" id="contactForm" novalidate aria-label="Formulario de contacto">
+          <div class="form-group">
+            <label for="nombre">Nombre completo <span aria-hidden="true">*</span></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required autocomplete="name" />
+            <span class="form-error" role="alert"></span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email <span aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" placeholder="tu@email.com" required autocomplete="email" />
+              <span class="form-error" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+54 9 XXX XXXXXXX" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje <span aria-hidden="true">*</span></label>
+            <textarea id="mensaje" name="mensaje" rows="5" placeholder="¿Qué fragancia te interesa? ¿Alguna consulta?" required></textarea>
+            <span class="form-error" role="alert"></span>
+          </div>
+          <button type="submit" class="btn btn-gold btn-full">Enviar mensaje</button>
+          <p class="form-success" id="formSuccess" role="status" aria-live="polite" hidden>
+            ¡Gracias! Tu mensaje fue enviado. Te contactamos a la brevedad.
+          </p>
+        </form>
+
+        <aside class="contacto-aside reveal" aria-label="Información de contacto">
+          <div class="info-card">
+            <h3>Contacto directo</h3>
+
+            <a href="#" class="info-item" id="infoWhatsapp" aria-label="Contactar por WhatsApp">
+              <div class="info-icon info-icon--wa" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              </div>
+              <div>
+                <strong>WhatsApp</strong>
+                <span id="displayWhatsapp">+54 9 XXX XXX XXXX</span>
+              </div>
+            </a>
+
+            <a href="#" class="info-item" id="infoEmail" aria-label="Enviar email">
+              <div class="info-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <strong>Email</strong>
+                <span id="displayEmail">info@luxeparfums.com.ar</span>
+              </div>
+            </a>
+
+            <div class="info-item">
+              <div class="info-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <strong>Ubicación</strong>
+                <span id="displayDireccion">Argentina</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="redes-card">
+            <h3>Seguinos en redes</h3>
+            <div class="redes-links">
+              <a href="#" class="red-link" id="linkInstagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                Instagram
+              </a>
+              <a href="#" class="red-link" id="linkTiktok" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.26 8.26 0 004.83 1.56V6.79a4.85 4.85 0 01-1.06-.1z"/></svg>
+                TikTok
+              </a>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <a href="#inicio" class="logo logo--footer" aria-label="Luxe Parfums - Inicio">
+            <span class="logo-icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <path d="M10 4h6M11 4v3M15 4v3M9 8h8l1.5 4v10a2 2 0 01-2 2H9.5a2 2 0 01-2-2V12L9 8z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.5 16h7M9.5 19.5h4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="logo-name">Bruma</span>
+          </a>
+          <p>Fragancias exclusivas importadas para quienes aprecian el arte de los perfumes premium.</p>
+          <div class="footer-redes" aria-label="Redes sociales">
+            <a href="#" id="footerInstagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" id="footerTiktok" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.26 8.26 0 004.83 1.56V6.79a4.85 4.85 0 01-1.06-.1z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <nav class="footer-col" aria-label="Navegación footer">
+          <h4>Navegación</h4>
+          <ul role="list">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#categorias">Categorías</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Categorías footer">
+          <h4>Categorías</h4>
+          <ul role="list">
+            <li><a href="#categorias">Masculinos</a></li>
+            <li><a href="#categorias">Femeninos</a></li>
+            <li><a href="#categorias">Unisex</a></li>
+            <li><a href="#categorias">Importados</a></li>
+            <li><a href="#categorias">Árabe</a></li>
+            <li><a href="#categorias">Nicho</a></li>
+            <li><a href="#categorias">Sets y Regalos</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-col footer-contacto-col">
+          <h4>Contacto</h4>
+          <ul class="footer-contacto-list" role="list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              <span id="footerWhatsapp">+54 9 XXX XXX XXXX</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span id="footerEmail">info@luxeparfums.com.ar</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Bruma. Todos los derechos reservados.</p>
+        <p>Desarrollado por <a href="https://www.bjpsistemas.com.ar/" target="_blank" rel="noopener noreferrer">BJP Sistemas</a></p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==================== CARRITO ==================== -->
+  <button class="cart-float" id="cartFloat" aria-label="Ver carrito">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61H19a2 2 0 001.99-1.61L23 6H6"/>
+    </svg>
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Detalle del producto">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar detalle">✕</button>
+    <div class="lightbox-content">
+      <div class="lightbox-img-wrap" id="lightboxImgWrap">
+        <img class="lightbox-img" id="lightboxImg" src="" alt="" loading="lazy" />
+        <div class="lightbox-placeholder" id="lightboxPlaceholder" aria-hidden="true"></div>
+      </div>
+      <div class="lightbox-info">
+        <span class="lightbox-marca" id="lightboxMarca"></span>
+        <p class="lightbox-nombre" id="lightboxNombre"></p>
+        <p class="lightbox-cat"   id="lightboxCat"></p>
+        <p class="lightbox-desc"  id="lightboxDesc"></p>
+        <p class="lightbox-precio" id="lightboxPrecio"></p>
+        <div class="lightbox-stock" id="lightboxStock"></div>
+        <button class="btn btn-gold btn-full" id="lightboxAdd">Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <aside class="cart-panel" id="cartPanel" aria-label="Carrito de compras">
+    <div class="cart-header">
+      <h3>Tu carrito</h3>
+      <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <p class="cart-empty">Tu carrito está vacío.</p>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total-row">
+        <span>Total estimado</span>
+        <strong id="cartTotal">$0</strong>
+      </div>
+      <input type="text" id="cartNombre" class="cart-nombre" placeholder="Tu nombre (opcional)" autocomplete="name" />
+      <button class="btn-cart-send" id="btnEnviarPedido">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Enviar pedido por WhatsApp
+      </button>
+      <button class="btn-cart-clear" id="btnVaciarCarrito" type="button">Vaciar carrito</button>
+      <p class="cart-disclaimer">Precios orientativos. Confirmamos disponibilidad.</p>
+    </div>
+  </aside>
+
+
+  <!-- ==================== WHATSAPP FLOTANTE ==================== -->
+  <a href="#" class="whatsapp-float" id="whatsappFloat" aria-label="Contactar por WhatsApp" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+    <span class="wa-tooltip">¡Consultanos!</span>
+  </a>
+
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>
