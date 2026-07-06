@@ -518,6 +518,28 @@ img { display: block; max-width: 100%; }
   color: var(--white-30);
   margin-top: 0.15rem;
 }
+.pf-checks {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+.pf-check-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: var(--white-80);
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.pf-check-label input[type="checkbox"] {
+  accent-color: var(--gold);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
 .admin-field input,
 .admin-field select,
 .admin-field textarea {
@@ -706,4 +728,95 @@ img { display: block; max-width: 100%; }
   .prod-admin-row { flex-wrap: wrap; }
   .prod-admin-actions { width: 100%; justify-content: flex-end; }
   .admin-cards-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   CONSULTAS
+   ============================================================ */
+.tab-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--noir);
+  font-size: 0.62rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 1px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.consultas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 0;
+}
+.consulta-row {
+  background: var(--white-10);
+  border: 1px solid var(--border-s);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.consulta-row--nueva {
+  border-color: rgba(201,169,110,0.45);
+  background: rgba(201,169,110,0.06);
+}
+.consulta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.consulta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.consulta-info strong {
+  font-size: 0.92rem;
+  color: var(--white);
+}
+.consulta-info span {
+  font-size: 0.78rem;
+  color: var(--white-60);
+}
+.consulta-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+.consulta-badge-nueva {
+  font-size: 0.62rem;
+  font-weight: 600;
+  background: var(--gold);
+  color: var(--noir);
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.consulta-fecha {
+  font-size: 0.75rem;
+  color: var(--white-30);
+}
+.consulta-btn-borrar {
+  background: none;
+  border: none;
+  color: var(--white-30);
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 2px 4px;
+  transition: color var(--dur);
+}
+.consulta-btn-borrar:hover { color: #e05555; }
+.consulta-mensaje {
+  font-size: 0.88rem;
+  color: var(--white-80);
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
 }

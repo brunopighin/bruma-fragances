@@ -228,6 +228,8 @@ function initProductosGrid() {
   var productos = getProductos();
   todosProductos = productos;
 
+  renderDestacados(productos);
+
   var grid  = document.getElementById("mainProductosGrid");
   var empty = document.getElementById("productosEmpty");
   if (!grid) return;
@@ -243,6 +245,24 @@ function initProductosGrid() {
   populateMarcasSelect(productos);
   renderProductosGrid(productos, grid);
   initSearch(productos, grid);
+}
+
+/* ── Sección Destacados ──────────────────────────────────── */
+function renderDestacados(productos) {
+  var section = document.getElementById("destacados");
+  var grid    = document.getElementById("destacadosGrid");
+  if (!section || !grid) return;
+
+  var destacados = (productos || []).filter(function(p) { return p.destacado; });
+
+  if (!destacados.length) {
+    section.hidden = true;
+    grid.innerHTML = "";
+    return;
+  }
+
+  section.hidden = false;
+  renderProductosGrid(destacados, grid);
 }
 
 /* ── Filtros por categoría ──────────────────────────────── */

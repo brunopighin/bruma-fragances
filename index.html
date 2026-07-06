@@ -23,18 +23,13 @@
     <div class="container">
       <nav class="nav" role="navigation" aria-label="Navegación principal">
 
-        <a href="#inicio" class="logo" aria-label="Luxe Parfums - Inicio">
-          <span class="logo-icon" aria-hidden="true">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-              <path d="M10 4h6M11 4v3M15 4v3M9 8h8l1.5 4v10a2 2 0 01-2 2H9.5a2 2 0 01-2-2V12L9 8z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9.5 16h7M9.5 19.5h4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <span class="logo-name">Bruma</span>
+        <a href="#inicio" class="logo" aria-label="Bruma - Inicio">
+          <img src="img/logo.png" alt="Bruma" class="logo-img" />
         </a>
 
         <ul class="nav-menu" id="navMenu" role="list">
           <li><a href="#inicio"     class="nav-link">Inicio</a></li>
+          <li><a href="#destacados" class="nav-link">Destacados</a></li>
           <li><a href="#categorias" class="nav-link">Categorías</a></li>
           <li><a href="#productos"  class="nav-link">Productos</a></li>
           <li><a href="#nosotros"   class="nav-link">Nosotros</a></li>
@@ -129,11 +124,7 @@
                 <div class="b-body b-piece">
                   <div class="bf">
                     <div class="b-label">
-                      <div class="b-label-mark">✦</div>
-                      <div class="b-label-brand">BRUMA</div>
-                      <div class="b-label-rule"></div>
-                      <div class="b-label-sub">PARFUMS</div>
-                      <div class="b-label-num">N° 01</div>
+                      <img src="img/logo.png" alt="Bruma" class="b-label-logo" />
                     </div>
                   </div>
                   <div class="bf"></div>
@@ -157,6 +148,20 @@
   </section>
 
 
+  <!-- ==================== DESTACADOS ==================== -->
+  <section class="section destacados" id="destacados" hidden>
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-eyebrow">Selección especial</span>
+        <h2 class="section-title">Nuestros <em>destacados</em></h2>
+        <p class="section-desc">Las fragancias favoritas de nuestros clientes, elegidas por nosotros.</p>
+      </header>
+
+      <div class="productos-grid" id="destacadosGrid"></div>
+    </div>
+  </section>
+
+
   <!-- ==================== CATEGORÍAS ==================== -->
   <section class="section section--alt" id="categorias">
     <div class="container">
@@ -167,83 +172,6 @@
       </header>
 
       <div class="cat-grid">
-
-        <div class="cat-card cat--masculinos reveal" data-cat="masculinos" role="button" tabindex="0">
-          <div class="cat-bg" aria-hidden="true"></div>
-          <div class="cat-visual" aria-hidden="true">
-            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
-              <rect x="16" y="30" width="32" height="48" rx="6" fill="rgba(201,169,110,0.12)" stroke="rgba(201,169,110,0.45)" stroke-width="1.5"/>
-              <rect x="24" y="18" width="16" height="14" rx="3" fill="rgba(201,169,110,0.18)" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
-              <rect x="29" y="12" width="6" height="8" rx="2" fill="rgba(201,169,110,0.25)" stroke="rgba(201,169,110,0.55)" stroke-width="1.2"/>
-              <line x1="32" y1="7" x2="32" y2="12" stroke="rgba(201,169,110,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-              <rect x="22" y="52" width="20" height="18" rx="2" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="1"/>
-              <line x1="26" y1="59" x2="38" y2="59" stroke="rgba(201,169,110,0.4)" stroke-width="1" stroke-linecap="round"/>
-              <line x1="26" y1="63" x2="33" y2="63" stroke="rgba(201,169,110,0.25)" stroke-width="1" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="cat-info">
-            <h3>Masculinos</h3>
-            <p>Madera, cuero y notas amaderadas</p>
-            <span class="cat-cta">Explorar →</span>
-          </div>
-        </div>
-
-        <div class="cat-card cat--femeninos reveal" data-cat="femeninos" role="button" tabindex="0">
-          <div class="cat-bg" aria-hidden="true"></div>
-          <div class="cat-visual" aria-hidden="true">
-            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
-              <ellipse cx="32" cy="62" rx="20" ry="24" fill="rgba(201,169,110,0.10)" stroke="rgba(201,169,110,0.45)" stroke-width="1.5"/>
-              <rect x="27" y="22" width="10" height="20" rx="3" fill="rgba(201,169,110,0.18)" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
-              <ellipse cx="32" cy="20" rx="5" ry="6" fill="rgba(201,169,110,0.22)" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
-              <ellipse cx="32" cy="62" rx="11" ry="13" fill="none" stroke="rgba(201,169,110,0.22)" stroke-width="1"/>
-              <line x1="27" y1="62" x2="37" y2="62" stroke="rgba(201,169,110,0.3)" stroke-width="0.8" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="cat-info">
-            <h3>Femeninos</h3>
-            <p>Floral, frutal y oriental</p>
-            <span class="cat-cta">Explorar →</span>
-          </div>
-        </div>
-
-        <div class="cat-card cat--unisex reveal" data-cat="unisex" role="button" tabindex="0">
-          <div class="cat-bg" aria-hidden="true"></div>
-          <div class="cat-visual" aria-hidden="true">
-            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
-              <rect x="12" y="22" width="40" height="56" rx="8" fill="rgba(201,169,110,0.10)" stroke="rgba(201,169,110,0.45)" stroke-width="1.5"/>
-              <rect x="21" y="10" width="22" height="14" rx="3" fill="rgba(201,169,110,0.16)" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"/>
-              <circle cx="32" cy="7" r="4" fill="rgba(201,169,110,0.24)" stroke="rgba(201,169,110,0.55)" stroke-width="1.2"/>
-              <rect x="19" y="42" width="26" height="24" rx="3" fill="none" stroke="rgba(201,169,110,0.28)" stroke-width="1"/>
-              <line x1="23" y1="51" x2="41" y2="51" stroke="rgba(201,169,110,0.38)" stroke-width="1" stroke-linecap="round"/>
-              <line x1="23" y1="57" x2="35" y2="57" stroke="rgba(201,169,110,0.22)" stroke-width="1" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="cat-info">
-            <h3>Unisex</h3>
-            <p>Para todos los géneros y momentos</p>
-            <span class="cat-cta">Explorar →</span>
-          </div>
-        </div>
-
-        <div class="cat-card cat--importados reveal" data-cat="importados" role="button" tabindex="0">
-          <div class="cat-bg" aria-hidden="true"></div>
-          <div class="cat-visual" aria-hidden="true">
-            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
-              <rect x="10" y="20" width="44" height="58" rx="4" fill="rgba(201,169,110,0.09)" stroke="rgba(201,169,110,0.42)" stroke-width="1.5"/>
-              <rect x="18" y="8" width="28" height="14" rx="3" fill="rgba(201,169,110,0.16)" stroke="rgba(201,169,110,0.48)" stroke-width="1.5"/>
-              <circle cx="32" cy="5" r="4" fill="rgba(201,169,110,0.26)" stroke="rgba(201,169,110,0.56)" stroke-width="1.2"/>
-              <path d="M18 38 Q32 30 46 38" stroke="rgba(201,169,110,0.38)" stroke-width="1" fill="none" stroke-linecap="round"/>
-              <line x1="14" y1="50" x2="50" y2="50" stroke="rgba(201,169,110,0.28)" stroke-width="1"/>
-              <line x1="18" y1="60" x2="46" y2="60" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
-              <line x1="20" y1="68" x2="38" y2="68" stroke="rgba(201,169,110,0.15)" stroke-width="1"/>
-            </svg>
-          </div>
-          <div class="cat-info">
-            <h3>Importados</h3>
-            <p>Europa, EE.UU. y Asia</p>
-            <span class="cat-cta">Explorar →</span>
-          </div>
-        </div>
 
         <div class="cat-card cat--arabe reveal" data-cat="arabe" role="button" tabindex="0">
           <div class="cat-bg" aria-hidden="true"></div>
@@ -258,8 +186,27 @@
             </svg>
           </div>
           <div class="cat-info">
-            <h3>Árabe</h3>
+            <h3>Árabes</h3>
             <p>Oud, ámbar y especias orientales</p>
+            <span class="cat-cta">Explorar →</span>
+          </div>
+        </div>
+
+        <div class="cat-card cat--disenador reveal" data-cat="disenador" role="button" tabindex="0">
+          <div class="cat-bg" aria-hidden="true"></div>
+          <div class="cat-visual" aria-hidden="true">
+            <svg class="cat-svg" viewBox="0 0 64 90" fill="none">
+              <rect x="10" y="20" width="44" height="58" rx="4" fill="rgba(201,169,110,0.09)" stroke="rgba(201,169,110,0.42)" stroke-width="1.5"/>
+              <rect x="18" y="8" width="28" height="14" rx="3" fill="rgba(201,169,110,0.16)" stroke="rgba(201,169,110,0.48)" stroke-width="1.5"/>
+              <circle cx="32" cy="5" r="4" fill="rgba(201,169,110,0.26)" stroke="rgba(201,169,110,0.56)" stroke-width="1.2"/>
+              <path d="M18 44 Q32 36 46 44" stroke="rgba(201,169,110,0.45)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              <line x1="18" y1="56" x2="46" y2="56" stroke="rgba(201,169,110,0.28)" stroke-width="1"/>
+              <line x1="22" y1="65" x2="42" y2="65" stroke="rgba(201,169,110,0.18)" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="cat-info">
+            <h3>Diseñador</h3>
+            <p>Dior, Chanel, YSL y más grandes marcas</p>
             <span class="cat-cta">Explorar →</span>
           </div>
         </div>
@@ -280,26 +227,6 @@
           <div class="cat-info">
             <h3>Nicho</h3>
             <p>Perfumería artesanal y exclusiva</p>
-            <span class="cat-cta">Explorar →</span>
-          </div>
-        </div>
-
-        <div class="cat-card cat--sets reveal" data-cat="sets" role="button" tabindex="0">
-          <div class="cat-bg" aria-hidden="true"></div>
-          <div class="cat-visual" aria-hidden="true">
-            <svg class="cat-svg" viewBox="0 0 80 90" fill="none">
-              <rect x="6" y="28" width="26" height="44" rx="4" fill="rgba(201,169,110,0.09)" stroke="rgba(201,169,110,0.4)" stroke-width="1.5"/>
-              <rect x="13" y="16" width="12" height="14" rx="2" fill="rgba(201,169,110,0.16)" stroke="rgba(201,169,110,0.44)" stroke-width="1.5"/>
-              <circle cx="19" cy="13" r="3.5" fill="rgba(201,169,110,0.24)" stroke="rgba(201,169,110,0.52)" stroke-width="1"/>
-              <rect x="38" y="33" width="24" height="39" rx="4" fill="rgba(201,169,110,0.11)" stroke="rgba(201,169,110,0.44)" stroke-width="1.5"/>
-              <rect x="44" y="20" width="12" height="15" rx="2" fill="rgba(201,169,110,0.18)" stroke="rgba(201,169,110,0.48)" stroke-width="1.5"/>
-              <circle cx="50" cy="17" r="3" fill="rgba(201,169,110,0.28)" stroke="rgba(201,169,110,0.56)" stroke-width="1"/>
-              <path d="M6 55 Q40 64 74 55" stroke="rgba(201,169,110,0.35)" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
-            </svg>
-          </div>
-          <div class="cat-info">
-            <h3>Sets y Regalos</h3>
-            <p>Packaging especial para regalar</p>
             <span class="cat-cta">Explorar →</span>
           </div>
         </div>
@@ -581,6 +508,7 @@
           <h4>Navegación</h4>
           <ul role="list">
             <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#destacados">Destacados</a></li>
             <li><a href="#categorias">Categorías</a></li>
             <li><a href="#productos">Productos</a></li>
             <li><a href="#nosotros">Nosotros</a></li>
@@ -591,13 +519,9 @@
         <nav class="footer-col" aria-label="Categorías footer">
           <h4>Categorías</h4>
           <ul role="list">
-            <li><a href="#categorias">Masculinos</a></li>
-            <li><a href="#categorias">Femeninos</a></li>
-            <li><a href="#categorias">Unisex</a></li>
-            <li><a href="#categorias">Importados</a></li>
-            <li><a href="#categorias">Árabe</a></li>
+            <li><a href="#categorias">Árabes</a></li>
+            <li><a href="#categorias">Diseñador</a></li>
             <li><a href="#categorias">Nicho</a></li>
-            <li><a href="#categorias">Sets y Regalos</a></li>
           </ul>
         </nav>
 

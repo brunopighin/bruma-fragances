@@ -326,6 +326,19 @@ function initContactForm() {
     btn.disabled = true;
     btn.textContent = "Enviando...";
 
+    const consulta = {
+      id:       "c_" + Date.now(),
+      fecha:    new Date().toISOString(),
+      nombre:   document.getElementById("nombre")?.value.trim(),
+      email:    document.getElementById("email")?.value.trim(),
+      telefono: document.getElementById("telefono")?.value.trim() || "",
+      mensaje:  document.getElementById("mensaje")?.value.trim(),
+      leida:    false,
+    };
+    const consultas = JSON.parse(localStorage.getItem("luxe_parfums_consultas") || "[]");
+    consultas.unshift(consulta);
+    localStorage.setItem("luxe_parfums_consultas", JSON.stringify(consultas));
+
     if (form.action && form.action !== window.location.href) {
       fetch(form.action, {
         method: "POST",
@@ -398,7 +411,7 @@ function initSmoothScroll() {
 
 /* ── Active nav link en scroll ──────────────────────────── */
 function initActiveNav() {
-  const sectionIds = ["inicio", "categorias", "productos", "nosotros", "testimonios", "faq", "contacto"];
+  const sectionIds = ["inicio", "destacados", "categorias", "productos", "nosotros", "testimonios", "faq", "contacto"];
   const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const links    = document.querySelectorAll(".nav-link");
 
