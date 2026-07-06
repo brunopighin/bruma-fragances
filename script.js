@@ -2,12 +2,19 @@
    Luxe Parfums — script.js
    ============================================================ */
 
+/* ── Al recargar la página, volver siempre al inicio ───────
+   Evita que el navegador restaure la posición de scroll previa. */
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+window.scrollTo(0, 0);
+
 /* ── CONFIGURACIÓN ─────────────────────────────────────────
    Editá estos valores con los datos reales del negocio.
    ──────────────────────────────────────────────────────── */
 const CONFIG = {
   whatsapp: {
-    numero:          "5491100000000",
+    numero:          "5492323549320",
     mensajeGeneral:  "Hola! Me comunico desde la web de Luxe Parfums. Quería consultar sobre sus fragancias.",
     mensajeCarrito:  "Hola! Quiero hacer el siguiente pedido:",
     mensajeCategoria: (cat) => `Hola! Quiero consultar por la categoría *${cat}* de fragancias.`,
@@ -15,8 +22,7 @@ const CONFIG = {
   email:     "info@luxeparfums.com.ar",
   direccion: "Argentina",
   redes: {
-    instagram: "https://www.instagram.com/luxeparfums",
-    tiktok:    "https://www.tiktok.com/@luxeparfums",
+    instagram: "https://www.instagram.com/bruma_fragances/",
   },
 };
 
@@ -215,9 +221,7 @@ function initLinks() {
 
   // Redes
   setHref("linkInstagram", CONFIG.redes.instagram);
-  setHref("linkTiktok", CONFIG.redes.tiktok);
   setHref("footerInstagram", CONFIG.redes.instagram);
-  setHref("footerTiktok", CONFIG.redes.tiktok);
 }
 
 function setHref(id, href) {

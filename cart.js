@@ -18,6 +18,7 @@ var cartTotalEl  = document.getElementById("cartTotal");
 var lightbox         = document.getElementById("lightbox");
 var lightboxImgEl    = document.getElementById("lightboxImg");
 var lightboxImgWrap  = document.getElementById("lightboxImgWrap");
+var lightboxThumbsEl = document.getElementById("lightboxThumbs");
 var lightboxPlaceholder = document.getElementById("lightboxPlaceholder");
 var lightboxMarcaEl  = document.getElementById("lightboxMarca");
 var lightboxNomEl    = document.getElementById("lightboxNombre");
@@ -43,17 +44,20 @@ lightboxAddBtn.addEventListener("click", function() {
 function openLightbox(prod) {
   lightboxCurrentProd = prod;
 
-  if (prod.imagen) {
-    lightboxImgEl.src = prod.imagen;
-    lightboxImgEl.alt = prod.nombre;
-    lightboxImgEl.style.display = "block";
-    lightboxPlaceholder.style.display = "none";
+  var imagenes = [];
+  if (prod.imagen) imagenes.push(prod.imagen);
+  if (prod.imagenTrasera) imagenes.push(prod.imagenTrasera);
+
+  if (imagenes.length) {
+    showLightboxImage(imagenes[0], prod.nombre);
   } else {
     lightboxImgEl.src = "";
     lightboxImgEl.style.display = "none";
     lightboxPlaceholder.style.display = "flex";
     lightboxPlaceholder.style.cssText = getPlaceholderStyle(prod.categoria);
   }
+
+  buildLightboxThumbs(imagenes, prod.nombre);
 
   lightboxMarcaEl.textContent  = prod.marca || "";
   lightboxNomEl.textContent    = prod.nombre;
@@ -80,6 +84,39 @@ function closeLightbox() {
   lightbox.classList.remove("open");
   document.body.style.overflow = "";
   lightboxCurrentProd = null;
+}
+
+/* ── Foto principal + miniaturas (frente / atrás) ─────────── */
+function showLightboxImage(src, alt) {
+  lightboxImgEl.src = src;
+  lightboxImgEl.alt = alt || "";
+  lightboxImgEl.style.display = "block";
+  lightboxPlaceholder.style.display = "none";
+}
+
+function buildLightboxThumbs(imagenes, nombre) {
+  lightboxThumbsEl.innerHTML = "";
+
+  if (imagenes.length < 2) {
+    lightboxThumbsEl.hidden = true;
+    return;
+  }
+
+  imagenes.forEach(function(src, idx) {
+    var thumb = document.createElement("button");
+    thumb.type = "button";
+    thumb.className = "lightbox-thumb" + (idx === 0 ? " active" : "");
+    thumb.setAttribute("aria-label", idx === 0 ? "Ver foto de frente" : "Ver foto de atrás");
+    thumb.innerHTML = "<img src=\"" + src + "\" alt=\"\" loading=\"lazy\" />";
+    thumb.addEventListener("click", function() {
+      showLightboxImage(src, nombre);
+      lightboxThumbsEl.querySelectorAll(".lightbox-thumb").forEach(function(t) { t.classList.remove("active"); });
+      thumb.classList.add("active");
+    });
+    lightboxThumbsEl.appendChild(thumb);
+  });
+
+  lightboxThumbsEl.hidden = false;
 }
 
 /* ── Panel carrito ────────────────────────────────────────── */
@@ -413,7 +450,7 @@ function buildProductCard(prod, idx) {
     badgeHtml = "<span class=\"" + badgeClass + "\">" + esc(prod.badge) + "</span>";
   }
 
-  // Image or placeholder
+  // Image or placeholder (foto de frente)
   var imgHtml = "";
   if (prod.imagen) {
     imgHtml = "<img src=\"" + prod.imagen + "\" alt=\"" + esc(prod.nombre) + "\" loading=\"lazy\" class=\"prod-img\" />";

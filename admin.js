@@ -226,6 +226,7 @@ function renderProdList(list) {
     const badge  = prod.badge  ? `<span class="prod-admin-cat-tag" style="color:var(--gold-bright)">${esc(prod.badge)}</span>` : "";
     const stock  = prod.stock != null ? `<span style="font-size:0.72rem;color:var(--white-30)">Stock: ${prod.stock}</span>` : "";
     const destacado = prod.destacado ? `<span class="prod-admin-cat-tag" style="color:var(--gold-bright)">★ Destacado</span>` : "";
+    const dosFotos  = prod.imagenTrasera ? `<span class="prod-admin-cat-tag">📷 2 fotos</span>` : "";
 
     row.innerHTML = thumb +
       `<div class="prod-admin-info">
@@ -236,6 +237,7 @@ function renderProdList(list) {
         ${stock}
         ${badge}
         ${destacado}
+        ${dosFotos}
       </div>
       <div class="prod-admin-actions">
         <button class="btn-edit-prod" type="button">Editar</button>
@@ -328,9 +330,14 @@ function openProductForm(prod, formWrap, list) {
           <input type="text" id="pf-desc" value="${isEdit && prod.descripcion ? esc(prod.descripcion) : ""}" placeholder="Notas olfativas, intensidad..." />
         </div>
         <div class="admin-field prod-form-img">
-          <label>Imagen del producto (máx. 3MB)</label>
+          <label>Foto de frente (máx. 3MB)</label>
           <input type="file" id="pf-img" accept="image/*" />
           ${isEdit && prod.imagen ? `<img src="${prod.imagen}" class="pf-preview" alt="Preview actual" />` : ""}
+        </div>
+        <div class="admin-field prod-form-img">
+          <label>Foto de atrás (opcional, máx. 3MB)</label>
+          <input type="file" id="pf-img2" accept="image/*" />
+          ${isEdit && prod.imagenTrasera ? `<img src="${prod.imagenTrasera}" class="pf-preview" alt="Preview actual (atrás)" />` : ""}
         </div>
       </div>
       <div class="prod-form-btns">
@@ -355,7 +362,8 @@ function openProductForm(prod, formWrap, list) {
     const precio  = document.getElementById("pf-precio").value.trim();
     const stock   = document.getElementById("pf-stock").value.trim();
     const desc    = document.getElementById("pf-desc").value.trim();
-    const imgFile = document.getElementById("pf-img").files[0];
+    const imgFile  = document.getElementById("pf-img").files[0];
+    const imgFile2 = document.getElementById("pf-img2").files[0];
     const volumen = [...document.querySelectorAll('input[name="pf-vol"]:checked')].map(c => c.value);
     const destacado = document.getElementById("pf-destacado").checked;
     const errEl   = document.getElementById("pf-error");
@@ -363,7 +371,7 @@ function openProductForm(prod, formWrap, list) {
     if (!nombre) { errEl.style.display = "block"; return; }
     errEl.style.display = "none";
 
-    function guardarProducto(imagenData) {
+    function guardarProducto(imagenData, imagenTraseraData) {
       if (isEdit) {
         const p = config.productos.find(x => x.id === prod.id);
         if (p) {
@@ -378,6 +386,7 @@ function openProductForm(prod, formWrap, list) {
           p.volumen         = volumen.length ? volumen : null;
           p.destacado       = destacado;
           if (imagenData !== undefined) p.imagen = imagenData;
+          if (imagenTraseraData !== undefined) p.imagenTrasera = imagenTraseraData;
         }
       } else {
         config.productos.push({
@@ -393,6 +402,7 @@ function openProductForm(prod, formWrap, list) {
           volumen:         volumen.length ? volumen : null,
           destacado:       destacado,
           imagen:          imagenData || null,
+          imagenTrasera:   imagenTraseraData || null,
         });
       }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
@@ -402,14 +412,19 @@ function openProductForm(prod, formWrap, list) {
       showToast(isEdit ? "Producto actualizado" : "Producto agregado");
     }
 
-    if (imgFile) {
-      if (imgFile.size > 3 * 1024 * 1024) { alert("La imagen es demasiado grande. Máximo 3MB."); return; }
-      const reader = new FileReader();
-      reader.onload = (e) => guardarProducto(e.target.result);
-      reader.readAsDataURL(imgFile);
-    } else {
-      guardarProducto(isEdit ? undefined : null);
+    function leerImagen(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) { resolve(isEdit ? undefined : null); return; }
+        if (file.size > 3 * 1024 * 1024) { reject(new Error("La imagen es demasiado grande. Máximo 3MB.")); return; }
+        const reader = new FileReader();
+        reader.onload = (e) => resolve(e.target.result);
+        reader.readAsDataURL(file);
+      });
     }
+
+    Promise.all([leerImagen(imgFile), leerImagen(imgFile2)])
+      .then(([imagenData, imagenTraseraData]) => guardarProducto(imagenData, imagenTraseraData))
+      .catch((err) => alert(err.message));
   });
 
   // Scroll al form
