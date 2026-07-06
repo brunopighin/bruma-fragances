@@ -658,6 +658,7 @@ img { display: block; max-width: 100%; }
   gap: 0.8rem;
 }
 .config-card--full { grid-column: 1 / -1; }
+.config-card[hidden] { display: none; }
 .config-card h4 {
   font-size: 0.78rem;
   font-weight: 600;
@@ -700,6 +701,7 @@ img { display: block; max-width: 100%; }
   z-index: 9999;
   animation: toastIn 0.3s var(--ease);
 }
+.toast[hidden] { display: none; }
 @keyframes toastIn {
   from { opacity: 0; transform: translateX(-50%) translateY(12px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }

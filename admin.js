@@ -1,64 +1,21 @@
 /* ============================================================
-   Luxe Parfums — admin.js
+   Bruma — admin.js
+   Todo el panel habla con el backend en /api en vez de localStorage.
    ============================================================ */
 
-const STORAGE_KEY    = "luxe_parfums_admin";
-const DEFAULT_PW_KEY = "luxe_parfums_pw";
+const API = {
+  session:   "api/session.php",
+  login:     "api/login.php",
+  logout:    "api/logout.php",
+  productos: "api/productos.php",
+  settings:  "api/settings.php",
+  consultas: "api/consultas.php",
+  upload:    "api/upload.php",
+  migrar:    "api/migrar.php",
+};
 
-/* ── Password ──────────────────────────────────────────────── */
-function getAdminPassword() {
-  return localStorage.getItem(DEFAULT_PW_KEY) || "Admin123";
-}
-
-/* ── Config en memoria ────────────────────────────────────── */
-let config = {};
-try { config = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { config = {}; }
-if (!config.productos) config.productos = [];
-
-/* ── Importar fotos de productos desde la carpeta /img ───────
-   Fotos ya subidas a /img se cargan una sola vez como productos
-   en borrador, para completar nombre/precio/descripción después. */
-const IMG_PRODUCT_FILES = [
-  "Afnan9PMRebelEaudeParfumUnisex100ml-removebg-preview.png",
-  "IMG_3473.PNG", "IMG_3474.PNG", "IMG_3475.PNG", "IMG_3476.PNG", "IMG_3477.PNG",
-  "IMG_3478.PNG", "IMG_3479.PNG", "IMG_3480.PNG", "IMG_3481.PNG", "IMG_3482.PNG",
-  "IMG_3483.PNG", "IMG_3484.PNG", "IMG_3485.PNG", "IMG_3486.PNG", "IMG_3487.PNG",
-  "IMG_3488.PNG", "IMG_3489.PNG", "IMG_3490.PNG", "IMG_3491.PNG", "IMG_3492.PNG",
-  "IMG_3493.PNG", "IMG_3494.PNG", "IMG_3495.PNG", "IMG_3496.PNG", "IMG_3497.PNG",
-  "IMG_3498.PNG", "IMG_3500.PNG", "IMG_3501.PNG", "IMG_3502.PNG", "IMG_3503.PNG",
-  "IMG_3504.PNG", "IMG_3505.PNG", "IMG_3506.PNG", "IMG_3507.PNG", "IMG_3508.PNG",
-  "IMG_3509.PNG", "IMG_3510.PNG", "IMG_3511.PNG", "IMG_3512.PNG", "IMG_3514.PNG",
-  "IMG_3515.PNG",
-];
-const IMG_SEED_FLAG = "luxe_parfums_img_seed_v1";
-
-function seedProductosDesdeImg() {
-  if (localStorage.getItem(IMG_SEED_FLAG)) return;
-  const yaCargadas = new Set(config.productos.map(p => p.imagen));
-  let agregados = 0;
-  IMG_PRODUCT_FILES.forEach(file => {
-    const ruta = "img/" + file;
-    if (yaCargadas.has(ruta)) return;
-    const esAfnan = file.startsWith("Afnan9PMRebel");
-    config.productos.push({
-      id:              "prod_seed_" + Date.now() + "_" + agregados,
-      nombre:          esAfnan ? "9PM Rebel" : "Producto sin nombre (" + file.replace(/\.PNG$/i, "") + ")",
-      marca:           esAfnan ? "Afnan" : "",
-      categoria:       "arabe",
-      categoriaNombre: "Árabes",
-      badge:           null,
-      precio:          0,
-      stock:           null,
-      descripcion:     "",
-      volumen:         null,
-      imagen:          ruta,
-    });
-    agregados++;
-  });
-  if (agregados > 0) localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
-  localStorage.setItem(IMG_SEED_FLAG, "1");
-}
-seedProductosDesdeImg();
+let productosCache = [];
+let consultasCache = [];
 
 /* ── Categorías disponibles ───────────────────────────────── */
 const CATEGORIAS = [
@@ -67,34 +24,45 @@ const CATEGORIAS = [
   { id: "nicho",       nombre: "Nicho" },
 ];
 
-/* ── Secciones con imagen ─────────────────────────────────── */
-const SECCIONES = [
-  { id: "hero",      nombre: "Imagen Hero (fondo del inicio)" },
-  { id: "nosotros",  nombre: "Foto Nosotros" },
-  { id: "banner1",   nombre: "Banner destacado 1" },
-  { id: "banner2",   nombre: "Banner destacado 2" },
-];
-
 /* ── Login ────────────────────────────────────────────────── */
-const btnIngresar   = document.getElementById("btnIngresar");
-const pwInput       = document.getElementById("password");
-const loginError    = document.getElementById("loginError");
+const btnIngresar = document.getElementById("btnIngresar");
+const pwInput     = document.getElementById("password");
+const loginError  = document.getElementById("loginError");
 
 btnIngresar.addEventListener("click", intentarLogin);
 pwInput.addEventListener("keydown", (e) => { if (e.key === "Enter") intentarLogin(); });
 
-function intentarLogin() {
-  if (pwInput.value === getAdminPassword()) {
-    document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("adminPanel").style.display  = "flex";
-    buildUI();
-  } else {
+// Si ya había una sesión activa (recargó la página estando logueado), entra directo.
+fetch(API.session)
+  .then((res) => res.json())
+  .then((data) => { if (data.loggedIn) mostrarPanel(); })
+  .catch(() => {});
+
+async function intentarLogin() {
+  btnIngresar.disabled = true;
+  try {
+    const res = await fetch(API.login, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: pwInput.value }),
+    });
+    if (!res.ok) throw new Error();
+    mostrarPanel();
+  } catch (e) {
     loginError.style.display = "block";
     pwInput.value = "";
     pwInput.focus();
     pwInput.parentElement.parentElement.classList.add("shake");
     setTimeout(() => pwInput.parentElement.parentElement.classList.remove("shake"), 500);
+  } finally {
+    btnIngresar.disabled = false;
   }
+}
+
+function mostrarPanel() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("adminPanel").style.display  = "flex";
+  buildUI();
 }
 
 document.getElementById("togglePassword").addEventListener("click", function() {
@@ -105,35 +73,38 @@ document.getElementById("togglePassword").addEventListener("click", function() {
 });
 
 /* ── Logout ──────────────────────────────────────────────── */
-document.getElementById("btnLogout").addEventListener("click", () => location.reload());
+document.getElementById("btnLogout").addEventListener("click", async () => {
+  try { await fetch(API.logout, { method: "POST" }); } catch (e) {}
+  location.reload();
+});
 
-/* ── Guardar ─────────────────────────────────────────────── */
-document.getElementById("btnGuardar").addEventListener("click", saveAll);
+/* ── Guardar (Configuración) ────────────────────────────────── */
+document.getElementById("btnGuardar").addEventListener("click", saveSettings);
 
-function saveAll() {
-  // Guardar config de secciones imagen (ya se guarda en tiempo real)
-  // Guardar config de settings
+async function saveSettings() {
   const wa  = document.getElementById("cfgWhatsapp")?.value.trim();
   const em  = document.getElementById("cfgEmail")?.value.trim();
   const dir = document.getElementById("cfgDireccion")?.value.trim();
   const ig  = document.getElementById("cfgInstagram")?.value.trim();
-  const tt  = document.getElementById("cfgTiktok")?.value.trim();
 
-  if (!config.settings) config.settings = {};
-  if (wa)  config.settings.whatsapp  = wa;
-  if (em)  config.settings.email     = em;
-  if (dir) config.settings.direccion = dir;
-  if (ig)  config.settings.instagram = ig;
-  if (tt)  config.settings.tiktok    = tt;
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
-  showToast("¡Guardado exitosamente!");
+  try {
+    const res = await fetch(API.settings, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ whatsapp: wa, email: em, direccion: dir, instagram: ig }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "No se pudo guardar.");
+    showToast("¡Guardado exitosamente!");
+  } catch (e) {
+    alert(e.message);
+  }
 }
 
 /* ── Tabs ────────────────────────────────────────────────── */
 const tabs    = document.querySelectorAll(".tab");
 const topbarTitle = document.getElementById("topbarTitle");
-const tabTitles = { productos: "Productos", imagenes: "Imágenes de secciones", consultas: "Consultas recibidas", config: "Configuración" };
+const tabTitles = { productos: "Productos", consultas: "Consultas recibidas", config: "Configuración" };
 
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
@@ -162,7 +133,6 @@ function closeSidebar() { sidebar.classList.remove("open"); }
 /* ── Build UI ────────────────────────────────────────────── */
 function buildUI() {
   buildProductosAdmin();
-  buildImagenesAdmin();
   buildConsultasAdmin();
   buildConfigAdmin();
 }
@@ -191,26 +161,37 @@ function buildProductosAdmin() {
   const list = document.createElement("div");
   list.className = "prod-admin-list";
   list.id = "prodListAll";
+  list.innerHTML = `<div class="prod-admin-empty">Cargando productos...</div>`;
   container.appendChild(list);
 
   btnNuevo.addEventListener("click", function() {
     openProductForm(null, formWrap, list);
   });
 
+  cargarProductos(list);
+}
+
+async function cargarProductos(list) {
+  try {
+    const res = await fetch(API.productos);
+    productosCache = await res.json();
+  } catch (e) {
+    productosCache = [];
+  }
   renderProdList(list);
 }
 
 function renderProdList(list) {
   list.innerHTML = "";
-  if (!config.productos || config.productos.length === 0) {
+  if (!productosCache || productosCache.length === 0) {
     list.innerHTML = `<div class="prod-admin-empty">
       <p>Todavía no hay productos cargados.</p>
-      <p style="margin-top:0.4rem;font-size:0.78rem;opacity:0.6">Los productos demo se muestran en la web hasta que agregues los tuyos.</p>
+      <p style="margin-top:0.4rem;font-size:0.78rem;opacity:0.6">Agregá el primero con el botón de arriba.</p>
     </div>`;
     return;
   }
 
-  config.productos.forEach(function(prod) {
+  productosCache.forEach(function(prod) {
     const row = document.createElement("div");
     row.className = "prod-admin-row";
 
@@ -246,12 +227,18 @@ function renderProdList(list) {
 
     const list2 = document.getElementById("prodListAll");
 
-    row.querySelector(".btn-del-prod").addEventListener("click", function() {
+    row.querySelector(".btn-del-prod").addEventListener("click", async function() {
       if (!confirm(`¿Eliminar "${prod.nombre}"?`)) return;
-      config.productos = config.productos.filter(p => p.id !== prod.id);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
-      renderProdList(list2);
-      showToast("Producto eliminado");
+      try {
+        const res = await fetch(`${API.productos}?id=${encodeURIComponent(prod.id)}`, { method: "DELETE" });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "No se pudo eliminar.");
+        productosCache = productosCache.filter(p => p.id !== prod.id);
+        renderProdList(list2);
+        showToast("Producto eliminado");
+      } catch (e) {
+        alert(e.message);
+      }
     });
 
     row.querySelector(".btn-edit-prod").addEventListener("click", function() {
@@ -352,7 +339,7 @@ function openProductForm(prod, formWrap, list) {
     formWrap.dataset.editing = "";
   });
 
-  formWrap.querySelector("#pfGuardar").addEventListener("click", function() {
+  formWrap.querySelector("#pfGuardar").addEventListener("click", async function() {
     const nombre  = document.getElementById("pf-nombre").value.trim();
     const marca   = document.getElementById("pf-marca").value.trim();
     const catSel  = document.getElementById("pf-cat");
@@ -367,201 +354,143 @@ function openProductForm(prod, formWrap, list) {
     const volumen = [...document.querySelectorAll('input[name="pf-vol"]:checked')].map(c => c.value);
     const destacado = document.getElementById("pf-destacado").checked;
     const errEl   = document.getElementById("pf-error");
+    const btnGuardarProd = formWrap.querySelector("#pfGuardar");
 
     if (!nombre) { errEl.style.display = "block"; return; }
     errEl.style.display = "none";
 
-    function guardarProducto(imagenData, imagenTraseraData) {
+    btnGuardarProd.disabled = true;
+    btnGuardarProd.textContent = "Guardando...";
+
+    try {
+      const [imagenUrl, imagenTraseraUrl] = await Promise.all([
+        subirFotoSiHay(imgFile),
+        subirFotoSiHay(imgFile2),
+      ]);
+
+      const payload = {
+        nombre, marca,
+        categoria: catId,
+        categoriaNombre: catNom,
+        badge: badge || null,
+        precio: precio ? Number(precio) : 0,
+        stock: stock !== "" ? Number(stock) : null,
+        descripcion: desc,
+        volumen: volumen.length ? volumen : null,
+        destacado,
+      };
+      if (isEdit) payload.id = prod.id;
+      // Solo se manda la foto si se eligió un archivo nuevo; si no, el
+      // servidor conserva la que ya tenía el producto.
+      if (imagenUrl !== undefined) payload.imagen = imagenUrl;
+      if (imagenTraseraUrl !== undefined) payload.imagenTrasera = imagenTraseraUrl;
+
+      const res = await fetch(API.productos, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "No se pudo guardar el producto.");
+
       if (isEdit) {
-        const p = config.productos.find(x => x.id === prod.id);
-        if (p) {
-          p.nombre          = nombre;
-          p.marca           = marca;
-          p.categoria       = catId;
-          p.categoriaNombre = catNom;
-          p.badge           = badge;
-          p.precio          = precio ? Number(precio) : 0;
-          p.stock           = stock !== "" ? Number(stock) : null;
-          p.descripcion     = desc;
-          p.volumen         = volumen.length ? volumen : null;
-          p.destacado       = destacado;
-          if (imagenData !== undefined) p.imagen = imagenData;
-          if (imagenTraseraData !== undefined) p.imagenTrasera = imagenTraseraData;
-        }
+        const idx = productosCache.findIndex(p => p.id === prod.id);
+        if (idx !== -1) productosCache[idx] = data.producto;
       } else {
-        config.productos.push({
-          id:              "prod_" + Date.now(),
-          nombre,
-          marca,
-          categoria:       catId,
-          categoriaNombre: catNom,
-          badge:           badge || null,
-          precio:          precio ? Number(precio) : 0,
-          stock:           stock !== "" ? Number(stock) : null,
-          descripcion:     desc,
-          volumen:         volumen.length ? volumen : null,
-          destacado:       destacado,
-          imagen:          imagenData || null,
-          imagenTrasera:   imagenTraseraData || null,
-        });
+        productosCache.push(data.producto);
       }
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+
       formWrap.innerHTML = "";
       formWrap.dataset.editing = "";
       renderProdList(list);
       showToast(isEdit ? "Producto actualizado" : "Producto agregado");
+    } catch (e) {
+      alert(e.message);
+      btnGuardarProd.disabled = false;
+      btnGuardarProd.textContent = "Guardar producto";
     }
-
-    function leerImagen(file) {
-      return new Promise((resolve, reject) => {
-        if (!file) { resolve(isEdit ? undefined : null); return; }
-        if (file.size > 3 * 1024 * 1024) { reject(new Error("La imagen es demasiado grande. Máximo 3MB.")); return; }
-        const reader = new FileReader();
-        reader.onload = (e) => resolve(e.target.result);
-        reader.readAsDataURL(file);
-      });
-    }
-
-    Promise.all([leerImagen(imgFile), leerImagen(imgFile2)])
-      .then(([imagenData, imagenTraseraData]) => guardarProducto(imagenData, imagenTraseraData))
-      .catch((err) => alert(err.message));
   });
 
   // Scroll al form
   setTimeout(() => formWrap.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
 }
 
-/* ============================================================
-   IMÁGENES DE SECCIONES
-   ============================================================ */
-function buildImagenesAdmin() {
-  const grid = document.getElementById("imagenesGrid");
-  if (!grid) return;
-  grid.innerHTML = "";
+/* Sube un archivo al servidor y devuelve la URL pública. Si no hay archivo,
+   resuelve en `undefined` (significa "no tocar la foto actual"). */
+function subirFotoSiHay(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) { resolve(undefined); return; }
+    if (file.size > 3 * 1024 * 1024) { reject(new Error("La imagen es demasiado grande. Máximo 3MB.")); return; }
 
-  SECCIONES.forEach(sec => {
-    const data = config[sec.id] || {};
-    grid.appendChild(createSectionCard(sec.id, sec.nombre, data.imagen || null));
+    const formData = new FormData();
+    formData.append("foto", file);
+
+    fetch(API.upload, { method: "POST", body: formData })
+      .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
+      .then(({ ok, data }) => {
+        if (!ok) { reject(new Error(data.error || "No se pudo subir la imagen.")); return; }
+        resolve(data.url);
+      })
+      .catch(() => reject(new Error("No se pudo subir la imagen.")));
   });
-}
-
-function createSectionCard(id, nombre, imagen) {
-  const card = document.createElement("div");
-  card.className = "admin-card";
-
-  const preview = document.createElement("div");
-  preview.className = "admin-card-preview";
-  setPreviewContent(preview, imagen);
-
-  const body = document.createElement("div");
-  body.className = "admin-card-body";
-
-  const title = document.createElement("div");
-  title.className = "admin-card-title";
-  title.textContent = nombre;
-  body.appendChild(title);
-
-  const field = document.createElement("div");
-  field.className = "admin-field";
-  field.innerHTML = "<label>Imagen</label>";
-
-  const fileInput = document.createElement("input");
-  fileInput.type = "file";
-  fileInput.accept = "image/*";
-  fileInput.addEventListener("change", () => handleSectionUpload(fileInput, id, preview));
-  field.appendChild(fileInput);
-
-  const removeBtn = document.createElement("button");
-  removeBtn.className = "btn-remove";
-  removeBtn.type = "button";
-  removeBtn.textContent = "Quitar imagen";
-  removeBtn.addEventListener("click", () => {
-    if (!config[id]) config[id] = {};
-    config[id].imagen = null;
-    fileInput.value = "";
-    setPreviewContent(preview, null);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
-  });
-  field.appendChild(removeBtn);
-  body.appendChild(field);
-  card.appendChild(preview);
-  card.appendChild(body);
-  return card;
-}
-
-function setPreviewContent(preview, imagen) {
-  preview.innerHTML = "";
-  if (imagen) {
-    const img = document.createElement("img");
-    img.src = imagen;
-    img.alt = "";
-    preview.appendChild(img);
-  } else {
-    const ph = document.createElement("div");
-    ph.className = "no-img";
-    ph.textContent = "Sin imagen";
-    preview.appendChild(ph);
-  }
-}
-
-function handleSectionUpload(input, id, preview) {
-  const file = input.files[0];
-  if (!file) return;
-  if (file.size > 3 * 1024 * 1024) {
-    alert("La imagen es demasiado grande. Máximo 3MB.");
-    input.value = "";
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    if (!config[id]) config[id] = {};
-    config[id].imagen = e.target.result;
-    setPreviewContent(preview, e.target.result);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
-    showToast("Imagen guardada");
-  };
-  reader.readAsDataURL(file);
 }
 
 /* ============================================================
    CONSULTAS
    ============================================================ */
-const CONSULTAS_KEY = "luxe_parfums_consultas";
-
-function buildConsultasAdmin() {
+async function buildConsultasAdmin() {
   const container = document.getElementById("consultasAdmin");
   const badge     = document.getElementById("consultasBadge");
-  const consultas = JSON.parse(localStorage.getItem(CONSULTAS_KEY) || "[]");
+  container.innerHTML = `<div class="prod-admin-empty" style="margin:2rem auto;max-width:400px">Cargando consultas...</div>`;
 
-  const noLeidas = consultas.filter(c => !c.leida).length;
+  try {
+    const res = await fetch(API.consultas);
+    if (!res.ok) throw new Error();
+    consultasCache = await res.json();
+  } catch (e) {
+    consultasCache = [];
+  }
+
+  renderConsultas(container, badge);
+}
+
+function renderConsultas(container, badge) {
+  const noLeidas = consultasCache.filter(c => !c.leida).length;
   if (badge) {
     if (noLeidas > 0) { badge.textContent = noLeidas; badge.style.display = "inline-block"; }
     else { badge.style.display = "none"; }
   }
 
-  if (!consultas.length) {
+  container.innerHTML = "";
+
+  if (!consultasCache.length) {
     container.innerHTML = `<div class="prod-admin-empty" style="margin:2rem auto;max-width:400px">No hay consultas recibidas aún.</div>`;
     return;
   }
 
   const topBar = document.createElement("div");
   topBar.className = "prod-admin-topbar";
-  topBar.innerHTML = `<span>${consultas.length} consulta${consultas.length !== 1 ? "s" : ""}</span>
+  topBar.innerHTML = `<span>${consultasCache.length} consulta${consultasCache.length !== 1 ? "s" : ""}</span>
     <button class="btn-ghost-sm" id="btnBorrarConsultas">Borrar todas</button>`;
   container.appendChild(topBar);
 
-  topBar.querySelector("#btnBorrarConsultas").addEventListener("click", () => {
+  topBar.querySelector("#btnBorrarConsultas").addEventListener("click", async () => {
     if (!confirm("¿Borrar todas las consultas?")) return;
-    localStorage.removeItem(CONSULTAS_KEY);
-    container.innerHTML = "";
-    buildConsultasAdmin();
+    try {
+      const res = await fetch(API.consultas, { method: "DELETE" });
+      if (!res.ok) throw new Error();
+      consultasCache = [];
+      renderConsultas(container, badge);
+    } catch (e) {
+      alert("No se pudieron borrar las consultas.");
+    }
   });
 
   const list = document.createElement("div");
   list.className = "consultas-list";
   container.appendChild(list);
 
-  consultas.forEach((c, idx) => {
+  consultasCache.forEach((c) => {
     const fecha = new Date(c.fecha).toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" });
     const row = document.createElement("div");
     row.className = "consulta-row" + (c.leida ? "" : " consulta-row--nueva");
@@ -575,26 +504,32 @@ function buildConsultasAdmin() {
         <div class="consulta-meta">
           ${!c.leida ? `<span class="consulta-badge-nueva">Nueva</span>` : ""}
           <span class="consulta-fecha">${fecha}</span>
-          <button class="consulta-btn-borrar" data-idx="${idx}" title="Borrar">✕</button>
+          <button class="consulta-btn-borrar" title="Borrar">✕</button>
         </div>
       </div>
       <p class="consulta-mensaje">${esc(c.mensaje)}</p>
-      ${!c.leida ? `<button class="btn-ghost-sm consulta-btn-leida" data-idx="${idx}">Marcar como leída</button>` : ""}`;
+      ${!c.leida ? `<button class="btn-ghost-sm consulta-btn-leida">Marcar como leída</button>` : ""}`;
 
-    row.querySelector(".consulta-btn-borrar").addEventListener("click", () => {
-      const arr = JSON.parse(localStorage.getItem(CONSULTAS_KEY) || "[]");
-      arr.splice(idx, 1);
-      localStorage.setItem(CONSULTAS_KEY, JSON.stringify(arr));
-      container.innerHTML = "";
-      buildConsultasAdmin();
+    row.querySelector(".consulta-btn-borrar").addEventListener("click", async () => {
+      try {
+        const res = await fetch(`${API.consultas}?id=${encodeURIComponent(c.id)}`, { method: "DELETE" });
+        if (!res.ok) throw new Error();
+        consultasCache = consultasCache.filter(x => x.id !== c.id);
+        renderConsultas(container, badge);
+      } catch (e) {
+        alert("No se pudo borrar la consulta.");
+      }
     });
 
-    row.querySelector(".consulta-btn-leida")?.addEventListener("click", () => {
-      const arr = JSON.parse(localStorage.getItem(CONSULTAS_KEY) || "[]");
-      arr[idx].leida = true;
-      localStorage.setItem(CONSULTAS_KEY, JSON.stringify(arr));
-      container.innerHTML = "";
-      buildConsultasAdmin();
+    row.querySelector(".consulta-btn-leida")?.addEventListener("click", async () => {
+      try {
+        const res = await fetch(`${API.consultas}?id=${encodeURIComponent(c.id)}`, { method: "PATCH" });
+        if (!res.ok) throw new Error();
+        c.leida = true;
+        renderConsultas(container, badge);
+      } catch (e) {
+        alert("No se pudo marcar como leída.");
+      }
     });
 
     list.appendChild(row);
@@ -604,37 +539,106 @@ function buildConsultasAdmin() {
 /* ============================================================
    CONFIGURACIÓN
    ============================================================ */
-function buildConfigAdmin() {
-  const s = config.settings || {};
-  if (s.whatsapp)  setVal("cfgWhatsapp",  s.whatsapp);
-  if (s.email)     setVal("cfgEmail",     s.email);
-  if (s.direccion) setVal("cfgDireccion", s.direccion);
-  if (s.instagram) setVal("cfgInstagram", s.instagram);
-  if (s.tiktok)    setVal("cfgTiktok",    s.tiktok);
+async function buildConfigAdmin() {
+  try {
+    const res = await fetch(API.settings);
+    const s = await res.json();
+    setVal("cfgWhatsapp",  s.whatsapp);
+    setVal("cfgEmail",     s.email);
+    setVal("cfgDireccion", s.direccion);
+    setVal("cfgInstagram", s.instagram);
+  } catch (e) { /* deja los campos vacíos si falla */ }
 
-  document.getElementById("btnCfgPassword")?.addEventListener("click", function() {
+  document.getElementById("btnCfgPassword")?.addEventListener("click", async function() {
     const newPw = document.getElementById("cfgPassword")?.value.trim();
     if (!newPw || newPw.length < 6) { alert("La contraseña debe tener al menos 6 caracteres."); return; }
-    localStorage.setItem(DEFAULT_PW_KEY, newPw);
-    document.getElementById("cfgPassword").value = "";
-    showToast("Contraseña actualizada");
+    try {
+      const res = await fetch(API.settings, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newPassword: newPw }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "No se pudo cambiar la contraseña.");
+      document.getElementById("cfgPassword").value = "";
+      showToast("Contraseña actualizada");
+    } catch (e) {
+      alert(e.message);
+    }
   });
+
+  buildMigracion();
 }
 
 function setVal(id, val) {
   const el = document.getElementById(id);
-  if (el) el.value = val;
+  if (el && val) el.value = val;
+}
+
+/* ============================================================
+   MIGRACIÓN ÚNICA: datos que quedaron en este navegador (localStorage)
+   de cuando el sitio todavía no tenía servidor propio.
+   ============================================================ */
+const OLD_STORAGE_KEY   = "luxe_parfums_admin";
+const OLD_CONSULTAS_KEY = "luxe_parfums_consultas";
+const MIGRADO_FLAG      = "luxe_parfums_migrado_v1";
+
+function buildMigracion() {
+  const card = document.getElementById("migracionCard");
+  if (!card) return;
+
+  if (localStorage.getItem(MIGRADO_FLAG)) { card.hidden = true; return; }
+
+  let datosViejos = null;
+  try { datosViejos = JSON.parse(localStorage.getItem(OLD_STORAGE_KEY)); } catch (e) {}
+
+  const hayProductosViejos = datosViejos && Array.isArray(datosViejos.productos) && datosViejos.productos.length > 0;
+  if (!hayProductosViejos) { card.hidden = true; return; }
+
+  card.hidden = false;
+  card.querySelector("#migracionCantidad").textContent = datosViejos.productos.length;
+
+  document.getElementById("btnMigrar").addEventListener("click", migrarDatos);
+}
+
+async function migrarDatos() {
+  const btn = document.getElementById("btnMigrar");
+  btn.disabled = true;
+  btn.textContent = "Migrando...";
+
+  let datosViejos = {};
+  try { datosViejos = JSON.parse(localStorage.getItem(OLD_STORAGE_KEY)) || {}; } catch (e) {}
+  let consultasViejas = [];
+  try { consultasViejas = JSON.parse(localStorage.getItem(OLD_CONSULTAS_KEY)) || []; } catch (e) {}
+
+  try {
+    const res = await fetch(API.migrar, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productos: datosViejos.productos || [],
+        settings:  datosViejos.settings  || {},
+        consultas: consultasViejas,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "No se pudo migrar.");
+
+    localStorage.setItem(MIGRADO_FLAG, "1");
+    showToast(`¡Listo! Se migraron ${data.productos} productos.`);
+    document.getElementById("migracionCard").hidden = true;
+    buildProductosAdmin();
+  } catch (e) {
+    alert(e.message);
+    btn.disabled = false;
+    btn.textContent = "Migrar ahora";
+  }
 }
 
 /* ── Toast ───────────────────────────────────────────────── */
 function showToast(msg) {
   const toast = document.getElementById("toast");
   if (!toast) return;
-  const span = toast.querySelector("span") || toast;
-  if (toast.querySelector("svg + span")) {
-    toast.querySelector("svg + span") ? null : null;
-  }
-  // Actualizar texto manteniendo el ícono
   const svgEl = toast.querySelector("svg");
   toast.innerHTML = "";
   if (svgEl) toast.appendChild(svgEl);

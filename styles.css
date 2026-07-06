@@ -1372,6 +1372,7 @@ em { font-style: normal; font-family: var(--font-serif); }
   display: flex;
   gap: 0.6rem;
 }
+.lightbox-thumbs[hidden] { display: none; }
 .lightbox-thumb {
   width: 60px;
   height: 72px;

@@ -261,8 +261,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var todosProductos = [];
 
-function initProductosGrid() {
-  var productos = getProductos();
+async function initProductosGrid() {
+  var productos = await getProductos();
   todosProductos = productos;
 
   renderDestacados(productos);

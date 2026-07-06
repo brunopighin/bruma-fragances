@@ -26,159 +26,6 @@ const CONFIG = {
   },
 };
 
-/* ── PRODUCTOS DEMO ────────────────────────────────────────
-   Se muestran por defecto hasta que el admin cargue productos.
-   ──────────────────────────────────────────────────────── */
-const DEMO_PRODUCTOS = [
-  {
-    id: "demo_1",
-    nombre: "Sauvage",
-    marca: "Dior",
-    categoria: "masculinos",
-    categoriaNombre: "Masculinos",
-    descripcion: "Fresco, mineral y salvaje. Bergamota de Calabria con base de ámbar y madera.",
-    precio: 85000,
-    stock: 12,
-    badge: "Best Seller",
-    imagen: null
-  },
-  {
-    id: "demo_2",
-    nombre: "Bleu de Chanel",
-    marca: "Chanel",
-    categoria: "masculinos",
-    categoriaNombre: "Masculinos",
-    descripcion: "Elegante y audaz. Notas cítricas de naranja con cedro y madera de sándalo.",
-    precio: 95000,
-    stock: 8,
-    badge: "Importado",
-    imagen: null
-  },
-  {
-    id: "demo_3",
-    nombre: "One Million",
-    marca: "Paco Rabanne",
-    categoria: "masculinos",
-    categoriaNombre: "Masculinos",
-    descripcion: "Seductor y poderoso. Cuero, canela y pomelo rosa en perfecta armonía.",
-    precio: 72000,
-    stock: 20,
-    badge: null,
-    imagen: null
-  },
-  {
-    id: "demo_4",
-    nombre: "Good Girl",
-    marca: "Carolina Herrera",
-    categoria: "femeninos",
-    categoriaNombre: "Femeninos",
-    descripcion: "Sensual y sofisticada. Notas de jazmín, rosa y tonka bean sobre cacao.",
-    precio: 78000,
-    stock: 15,
-    badge: "Nuevo",
-    imagen: null
-  },
-  {
-    id: "demo_5",
-    nombre: "Libre",
-    marca: "YSL",
-    categoria: "femeninos",
-    categoriaNombre: "Femeninos",
-    descripcion: "Audaz y libre. Flor de naranja tunecina con lavanda de Provenza.",
-    precio: 90000,
-    stock: 10,
-    badge: "Best Seller",
-    imagen: null
-  },
-  {
-    id: "demo_6",
-    nombre: "Baccarat Rouge 540",
-    marca: "Maison Francis Kurkdjian",
-    categoria: "nicho",
-    categoriaNombre: "Nicho",
-    descripcion: "Opulento y único. Azafrán, cedro de Júniper y ambroxan de larga duración.",
-    precio: 350000,
-    stock: 3,
-    badge: "Exclusivo",
-    imagen: null
-  },
-  {
-    id: "demo_7",
-    nombre: "Acqua di Giò",
-    marca: "Giorgio Armani",
-    categoria: "masculinos",
-    categoriaNombre: "Masculinos",
-    descripcion: "Marino y fresco. Bergamota, jazmín marino y patchouli con base de ámbar.",
-    precio: 65000,
-    stock: 25,
-    badge: null,
-    imagen: null
-  },
-  {
-    id: "demo_8",
-    nombre: "La Vie Est Belle",
-    marca: "Lancôme",
-    categoria: "femeninos",
-    categoriaNombre: "Femeninos",
-    descripcion: "Dulce y floral. Iris, patchouli y pralinado con vainilla bourbon.",
-    precio: 82000,
-    stock: 18,
-    badge: "Importado",
-    imagen: null
-  },
-  {
-    id: "demo_9",
-    nombre: "Oud Wood",
-    marca: "Tom Ford",
-    categoria: "unisex",
-    categoriaNombre: "Unisex",
-    descripcion: "Exótico e íntimo. Madera de oud, sándalo de Tailandia y ámbar gris.",
-    precio: 280000,
-    stock: 5,
-    badge: "Nicho",
-    imagen: null
-  },
-  {
-    id: "demo_10",
-    nombre: "Black Orchid",
-    marca: "Tom Ford",
-    categoria: "unisex",
-    categoriaNombre: "Unisex",
-    descripcion: "Oscuro y lujoso. Orquídea negra, trufa y patchouli en una mezcla irresistible.",
-    precio: 260000,
-    stock: 6,
-    badge: null,
-    imagen: null
-  },
-  {
-    id: "demo_11",
-    nombre: "Arabian Nights",
-    marca: "Al Haramain",
-    categoria: "arabe",
-    categoriaNombre: "Árabe",
-    descripcion: "Oriental e intenso. Oud, rosa de Taif y sándalo blanco de Mysore.",
-    precio: 55000,
-    stock: 30,
-    badge: null,
-    imagen: null
-  },
-  {
-    id: "demo_12",
-    nombre: "Set Viaje Chanel",
-    marca: "Chanel",
-    categoria: "sets",
-    categoriaNombre: "Sets y Regalos",
-    descripcion: "Set de tres miniaturas: N°5, Coco Mademoiselle y Chance Eau Tendre.",
-    precio: 120000,
-    stock: 7,
-    badge: "Ideal regalo",
-    imagen: null
-  },
-];
-
-/* ── Storage key ───────────────────────────────────────────── */
-const STORAGE_KEY = "luxe_parfums_admin";
-
 /* ── Helper: link de WhatsApp ──────────────────────────────── */
 function waLink(msg) {
   return `https://wa.me/${CONFIG.whatsapp.numero}?text=${encodeURIComponent(msg)}`;
@@ -199,7 +46,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ── Links de contacto dinámicos ─────────────────────────── */
-function initLinks() {
+async function initLinks() {
+  // Si el panel admin configuró estos datos en el servidor, pisan los
+  // valores por defecto de arriba. Si falla (por ejemplo al abrir el
+  // HTML suelto sin backend), se usan los valores hardcodeados.
+  try {
+    const res = await fetch("api/settings.php");
+    if (res.ok) {
+      const s = await res.json();
+      if (s.whatsapp)  CONFIG.whatsapp.numero    = s.whatsapp;
+      if (s.email)     CONFIG.email              = s.email;
+      if (s.direccion) CONFIG.direccion          = s.direccion;
+      if (s.instagram) CONFIG.redes.instagram    = s.instagram;
+    }
+  } catch (e) { /* se queda con los valores por defecto */ }
+
   const wa = waLink(CONFIG.whatsapp.mensajeGeneral);
 
   // WhatsApp flotante + info
@@ -331,29 +192,19 @@ function initContactForm() {
     btn.textContent = "Enviando...";
 
     const consulta = {
-      id:       "c_" + Date.now(),
-      fecha:    new Date().toISOString(),
       nombre:   document.getElementById("nombre")?.value.trim(),
       email:    document.getElementById("email")?.value.trim(),
       telefono: document.getElementById("telefono")?.value.trim() || "",
       mensaje:  document.getElementById("mensaje")?.value.trim(),
-      leida:    false,
     };
-    const consultas = JSON.parse(localStorage.getItem("luxe_parfums_consultas") || "[]");
-    consultas.unshift(consulta);
-    localStorage.setItem("luxe_parfums_consultas", JSON.stringify(consultas));
 
-    if (form.action && form.action !== window.location.href) {
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
-      })
-        .then((res) => { if (res.ok) showFormSuccess(form, btn); else showFormError(btn); })
-        .catch(() => showFormError(btn));
-    } else {
-      setTimeout(() => showFormSuccess(form, btn), 800);
-    }
+    fetch("api/consultas.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(consulta),
+    })
+      .then((res) => { if (res.ok) showFormSuccess(form, btn); else showFormError(btn); })
+      .catch(() => showFormError(btn));
   });
 
   // Limpiar errores al escribir
@@ -456,11 +307,13 @@ function initFaq() {
   });
 }
 
-/* ── Obtener productos (admin) ───────────────────────────── */
-function getProductos() {
+/* ── Obtener productos (backend) ─────────────────────────── */
+async function getProductos() {
   try {
-    const cfg = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (cfg && cfg.productos) return cfg.productos;
-  } catch(e) {}
-  return [];
+    const res = await fetch("api/productos.php");
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (e) {
+    return [];
+  }
 }
