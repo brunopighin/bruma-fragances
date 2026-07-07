@@ -1484,7 +1484,7 @@ em { font-style: normal; font-family: var(--font-serif); }
 
 /* Mobile-md */
 @media (max-width: 768px) {
-  .hamburger { display: flex; }
+  .hamburger { display: flex; position: relative; z-index: 860; }
   .nav-admin { display: none; }
 
   .nav-menu {
@@ -1546,7 +1546,7 @@ em { font-style: normal; font-family: var(--font-serif); }
 
   .footer-grid { grid-template-columns: 1fr; }
 
-  .footer-bottom { flex-direction: column; text-align: center; }
+  .footer-bottom { flex-direction: column; text-align: center; padding-bottom: 5.5rem; }
 }
 
 

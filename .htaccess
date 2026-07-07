@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Permite entrar a /admin (sin .html) y que sirva admin.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin$ admin.html [L]
