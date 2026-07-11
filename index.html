@@ -18,6 +18,18 @@
 </head>
 <body>
 
+  <!-- ==================== PRELOADER ==================== -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-mist">
+      <span class="mist-blob mist-blob--1"></span>
+      <span class="mist-blob mist-blob--2"></span>
+      <span class="mist-blob mist-blob--3"></span>
+      <span class="mist-blob mist-blob--4"></span>
+      <span class="mist-blob mist-blob--5"></span>
+    </div>
+    <img src="img/logo.png" alt="" class="preloader-logo" />
+  </div>
+
   <!-- ==================== HEADER ==================== -->
   <header class="header" id="header">
     <div class="container">
@@ -86,57 +98,9 @@
         </div>
 
         <div class="hero-visual" aria-hidden="true">
-          <div class="bottle-scene">
-            <div class="bottle-float">
-              <div class="bottle-3d" id="bottle3d">
-
-                <!-- Cap: W=64 H=32 D=46 -->
-                <div class="b-cap b-piece">
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                </div>
-
-                <!-- Collar: W=52 H=14 D=38 -->
-                <div class="b-collar b-piece">
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                </div>
-
-                <!-- Neck: W=34 H=58 D=26 -->
-                <div class="b-neck b-piece">
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                </div>
-
-                <!-- Body: W=112 H=196 D=72 -->
-                <div class="b-body b-piece">
-                  <div class="bf">
-                    <div class="b-label">
-                      <img src="img/logo.png" alt="Bruma" class="b-label-logo" />
-                    </div>
-                  </div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                  <div class="bf"></div>
-                </div>
-
-              </div>
-            </div>
-            <div class="b-glow" aria-hidden="true"></div>
+          <div class="hero-video-wrap">
+            <video class="hero-video" src="img/facu.mp4" autoplay muted loop playsinline></video>
+            <img src="img/logo.png" alt="" class="hero-video-logo" />
           </div>
         </div>
 

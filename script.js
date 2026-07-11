@@ -33,6 +33,7 @@ function waLink(msg) {
 
 /* ── Inicialización ────────────────────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
+  initPreloader();
   initLinks();
   initHeader();
   initMobileMenu();
@@ -44,6 +45,26 @@ document.addEventListener("DOMContentLoaded", () => {
   initActiveNav();
   initFaq();
 });
+
+/* ── Preloader (niebla dorada) ───────────────────────────── */
+function initPreloader() {
+  const preloader = document.getElementById("preloader");
+  if (!preloader) return;
+
+  document.body.style.overflow = "hidden";
+
+  let hidden = false;
+  const hide = () => {
+    if (hidden) return;
+    hidden = true;
+    preloader.classList.add("is-hidden");
+    document.body.style.overflow = "";
+    setTimeout(() => preloader.remove(), 950);
+  };
+
+  window.addEventListener("load", () => setTimeout(hide, 1500));
+  setTimeout(hide, 4000); // fallback por si "load" tarda demasiado
+}
 
 /* ── Links de contacto dinámicos ─────────────────────────── */
 async function initLinks() {
