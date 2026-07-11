@@ -34,11 +34,14 @@ lightbox.addEventListener("click", function(e) { if (e.target === lightbox) clos
 document.addEventListener("keydown", function(e) { if (e.key === "Escape") { closeLightbox(); closeCart(); } });
 
 lightboxAddBtn.addEventListener("click", function() {
-  if (lightboxCurrentProd) {
-    addToCart(lightboxCurrentProd);
-    closeLightbox();
-    openCart();
+  if (!lightboxCurrentProd) return;
+  if (!lightboxCurrentProd.precio) {
+    abrirConsultaWhatsapp(lightboxCurrentProd);
+    return;
   }
+  addToCart(lightboxCurrentProd);
+  closeLightbox();
+  openCart();
 });
 
 function openLightbox(prod) {
@@ -73,8 +76,9 @@ function openLightbox(prod) {
     lightboxStockEl.textContent = "";
   }
 
-  lightboxAddBtn.disabled = (stockNum !== null && stockNum <= 0);
-  lightboxAddBtn.textContent = (stockNum !== null && stockNum <= 0) ? "Sin stock" : "Agregar al carrito";
+  var sinStock = stockNum !== null && stockNum <= 0;
+  lightboxAddBtn.disabled = sinStock;
+  lightboxAddBtn.textContent = sinStock ? "Sin stock" : (prod.precio ? "Agregar al carrito" : "Consultar por WhatsApp");
 
   lightbox.classList.add("open");
   document.body.style.overflow = "hidden";
@@ -495,7 +499,7 @@ function buildProductCard(prod, idx) {
       "<div class=\"prod-footer\">" +
         precioHtml +
         "<button class=\"btn-agregar\" type=\"button\"" + (agotado ? " disabled" : "") + ">" +
-          (agotado ? "Sin stock" : "+ Agregar") +
+          (agotado ? "Sin stock" : (prod.precio ? "+ Agregar" : "Consultar")) +
         "</button>" +
       "</div>" +
     "</div>";
@@ -508,17 +512,38 @@ function buildProductCard(prod, idx) {
   });
   imgWrap.style.cursor = "pointer";
 
-  // Botón agregar
+  // Botón agregar / consultar
   var btnAgregar = card.querySelector(".btn-agregar");
   if (!agotado) {
     btnAgregar.addEventListener("click", function(e) {
       e.stopPropagation();
-      addToCart(prod);
-      openCart();
+      if (prod.precio) {
+        addToCart(prod);
+        openCart();
+      } else {
+        abrirConsultaWhatsapp(prod);
+      }
+    });
+  }
+
+  // "Consultar" (sin precio) también abre WhatsApp al tocarlo
+  var precioEmpty = card.querySelector(".prod-price-empty");
+  if (precioEmpty) {
+    precioEmpty.style.cursor = "pointer";
+    precioEmpty.addEventListener("click", function(e) {
+      e.stopPropagation();
+      abrirConsultaWhatsapp(prod);
     });
   }
 
   return card;
+}
+
+/* ── Consulta por WhatsApp de un producto puntual ─────────── */
+function abrirConsultaWhatsapp(prod) {
+  var marca = prod.marca ? " (" + prod.marca + ")" : "";
+  var msg = "Hola! Quiero consultar el precio y disponibilidad de *" + prod.nombre + "*" + marca + ".";
+  window.open(waLink(msg), "_blank");
 }
 
 /* ── Placeholder style per category ─────────────────────── */

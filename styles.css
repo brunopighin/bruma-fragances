@@ -841,7 +841,8 @@ em { font-style: normal; font-family: var(--font-serif); }
   font-weight: 600;
   color: var(--white);
 }
-.prod-price-empty { color: var(--white-30); font-size: 0.82rem; }
+.prod-price-empty { color: var(--white-30); font-size: 0.82rem; transition: color var(--dur); }
+.prod-price-empty:hover { color: var(--gold); }
 .btn-agregar {
   padding: 0.45rem 1rem;
   background: var(--gold-glow);
