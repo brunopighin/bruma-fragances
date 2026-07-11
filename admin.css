@@ -1,5 +1,5 @@
 /* ============================================================
-   Luxe Parfums — admin.css
+   Bruma — admin.css
    Dashboard oscuro y premium
    ============================================================ */
 
@@ -65,25 +65,11 @@ img { display: block; max-width: 100%; }
   text-align: center;
   box-shadow: 0 20px 60px rgba(0,0,0,0.6);
 }
-.login-logo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px; height: 60px;
-  border-radius: 50%;
-  background: var(--gold-glow);
-  border: 1px solid var(--border);
-  color: var(--gold);
-  margin-bottom: 1.2rem;
+.login-logo-img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 0.8rem;
 }
-.login-title {
-  font-family: var(--font-serif);
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--white);
-  margin-bottom: 0.3rem;
-}
-.login-title em { color: var(--gold); font-style: italic; }
 .login-sub { font-size: 0.82rem; color: var(--white-30); margin-bottom: 2rem; }
 .login-form { display: flex; flex-direction: column; gap: 0.9rem; }
 .login-field { text-align: left; }
@@ -179,11 +165,10 @@ img { display: block; max-width: 100%; }
 .sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  color: var(--gold);
-  font-family: var(--font-serif);
-  font-size: 0.95rem;
-  font-weight: 600;
+}
+.sidebar-logo-img {
+  height: 36px;
+  width: auto;
 }
 .sidebar-close { display: none; color: var(--white-30); font-size: 1.1rem; padding: 0.2rem; }
 .sidebar-close:hover { color: var(--white); }
