@@ -156,7 +156,7 @@ img { display: block; max-width: 100%; }
   transition: transform 0.35s var(--ease);
 }
 .sidebar-header {
-  padding: 1.4rem 1.2rem 1rem;
+  padding: 1rem 1.2rem;
   border-bottom: 1px solid var(--border-s);
   display: flex;
   align-items: center;
@@ -167,7 +167,7 @@ img { display: block; max-width: 100%; }
   align-items: center;
 }
 .sidebar-logo-img {
-  height: 36px;
+  height: 64px;
   width: auto;
 }
 .sidebar-close { display: none; color: var(--white-30); font-size: 1.1rem; padding: 0.2rem; }
