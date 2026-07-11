@@ -19,7 +19,6 @@ const CONFIG = {
     mensajeCarrito:  "Hola! Quiero hacer el siguiente pedido:",
     mensajeCategoria: (cat) => `Hola! Quiero consultar por la categoría *${cat}* de fragancias.`,
   },
-  email:     "info@luxeparfums.com.ar",
   direccion: "Argentina",
   redes: {
     instagram: "https://www.instagram.com/bruma_fragances/",
@@ -76,7 +75,6 @@ async function initLinks() {
     if (res.ok) {
       const s = await res.json();
       if (s.whatsapp)  CONFIG.whatsapp.numero    = s.whatsapp;
-      if (s.email)     CONFIG.email              = s.email;
       if (s.direccion) CONFIG.direccion          = s.direccion;
       if (s.instagram) CONFIG.redes.instagram    = s.instagram;
     }
@@ -87,12 +85,6 @@ async function initLinks() {
   // WhatsApp flotante + info
   setHref("infoWhatsapp", wa);
   setHref("whatsappFloat", wa);
-
-  // Email
-  const infoEmail = document.getElementById("infoEmail");
-  if (infoEmail) infoEmail.href = `mailto:${CONFIG.email}`;
-  setText("displayEmail", CONFIG.email);
-  setText("footerEmail", CONFIG.email);
 
   // Número WA
   setText("displayWhatsapp", `+${CONFIG.whatsapp.numero}`);
