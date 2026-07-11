@@ -1704,9 +1704,11 @@ em { font-style: normal; font-family: var(--font-serif); }
   100% { opacity: 1; transform: scale(1); filter: blur(0); }
 }
 
+/* La niebla decorativa se apaga con "reducir movimiento", pero las
+   cortinas se dejan deslizar igual: es una transicion breve de una
+   sola vez, no el tipo de movimiento continuo que esa preferencia
+   busca evitar. */
 @media (prefers-reduced-motion: reduce) {
-  .preloader, .preloader-logo, .mist-blob, .preloader-curtain { animation: none !important; transition: opacity 0.4s ease !important; }
+  .preloader-logo, .mist-blob { animation: none !important; transition: opacity 0.4s ease !important; }
   .preloader-logo { opacity: 1; filter: none; }
-  .preloader.is-hidden .preloader-curtain--left,
-  .preloader.is-hidden .preloader-curtain--right { transform: none; opacity: 0; }
 }
