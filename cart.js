@@ -286,19 +286,24 @@ async function initProductosGrid() {
 
 /* ── Sección Destacados ──────────────────────────────────── */
 function renderDestacados(productos) {
-  var section = document.getElementById("destacados");
-  var grid    = document.getElementById("destacadosGrid");
+  var section    = document.getElementById("destacados");
+  var grid       = document.getElementById("destacadosGrid");
+  var navItem    = document.getElementById("navDestacadosItem");
+  var footerItem = document.getElementById("footerDestacadosItem");
   if (!section || !grid) return;
 
   var destacados = (productos || []).filter(function(p) { return p.destacado; });
+  var hay = destacados.length > 0;
 
-  if (!destacados.length) {
-    section.hidden = true;
+  section.hidden = !hay;
+  if (navItem) navItem.hidden = !hay;
+  if (footerItem) footerItem.hidden = !hay;
+
+  if (!hay) {
     grid.innerHTML = "";
     return;
   }
 
-  section.hidden = false;
   renderProductosGrid(destacados, grid);
 }
 
