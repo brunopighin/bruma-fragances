@@ -227,11 +227,12 @@ em { font-style: normal; font-family: var(--font-serif); }
   text-decoration: none;
 }
 .logo-img {
-  height: 140px;
+  height: 52px;
   width: auto;
   object-fit: contain;
-  transition: opacity var(--dur);
+  transition: opacity var(--dur), height var(--dur);
 }
+.header.scrolled .logo-img { height: 44px; }
 .logo:hover .logo-img { opacity: 0.85; }
 .logo-icon {
   display: flex;
