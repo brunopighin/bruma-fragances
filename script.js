@@ -15,7 +15,7 @@ window.scrollTo(0, 0);
 const CONFIG = {
   whatsapp: {
     numero:          "5492323549320",
-    mensajeGeneral:  "Hola! Me comunico desde la web de Luxe Parfums. Quería consultar sobre sus fragancias.",
+    mensajeGeneral:  "Hola, quisiera saber más información sobre un perfume.",
     mensajeCarrito:  "Hola! Quiero hacer el siguiente pedido:",
     mensajeCategoria: (cat) => `Hola! Quiero consultar por la categoría *${cat}* de fragancias.`,
   },
