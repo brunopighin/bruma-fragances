@@ -879,15 +879,13 @@ em { font-style: normal; font-family: var(--font-serif); }
    ============================================================ */
 .nosotros-inner {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(3rem, 6vw, 6rem);
+  grid-template-columns: 0.85fr 1fr;
+  gap: clamp(3rem, 6vw, 5rem);
   align-items: center;
-  max-width: 720px;
-  margin: 0 auto;
 }
 
 .nosotros-content .section-eyebrow { margin-bottom: 0.75rem; }
-.nosotros-content .section-title   { text-align: center; margin-bottom: 1.2rem; }
+.nosotros-content .section-title   { margin-bottom: 1.2rem; }
 .nosotros-lead {
   font-size: 1.05rem;
   color: var(--white-80);
@@ -928,6 +926,14 @@ em { font-style: normal; font-family: var(--font-serif); }
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.nosotros-img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 .nos-orb {
   position: absolute;
