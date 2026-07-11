@@ -171,14 +171,6 @@ em { font-style: normal; font-family: var(--font-serif); }
   background: var(--gold-glow-sm);
 }
 
-.link-gold {
-  color: var(--gold);
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
-  transition: opacity var(--dur);
-}
-.link-gold:hover { opacity: 0.75; }
-
 /* ── Reveal animations ────────────────────────────────────── */
 .reveal {
   opacity: 0;
@@ -322,17 +314,6 @@ em { font-style: normal; font-family: var(--font-serif); }
   transition: opacity var(--dur), transform var(--dur) var(--ease);
 }
 .nav-cart-badge.show { opacity: 1; transform: scale(1); }
-
-.nav-admin {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  color: var(--white-30);
-  transition: color var(--dur), background var(--dur);
-}
-.nav-admin:hover { color: var(--gold); background: var(--white-10); }
 
 /* Hamburger */
 .hamburger {
@@ -1488,7 +1469,6 @@ em { font-style: normal; font-family: var(--font-serif); }
 /* Mobile-md */
 @media (max-width: 768px) {
   .hamburger { display: flex; position: relative; z-index: 860; }
-  .nav-admin { display: none; }
 
   .nav-menu {
     position: fixed;
