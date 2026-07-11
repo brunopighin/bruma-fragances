@@ -58,7 +58,7 @@ function initPreloader() {
     hidden = true;
     preloader.classList.add("is-hidden");
     document.body.style.overflow = "";
-    setTimeout(() => preloader.remove(), 950);
+    setTimeout(() => preloader.remove(), 1050);
   };
 
   window.addEventListener("load", () => setTimeout(hide, 1500));

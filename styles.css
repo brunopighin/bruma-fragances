@@ -1632,20 +1632,36 @@ em { font-style: normal; font-family: var(--font-serif); }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--noir);
   overflow: hidden;
-  transition: opacity 0.9s ease, visibility 0.9s ease;
+  transition: visibility 1s ease;
 }
 .preloader.is-hidden {
-  opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
 
+/* Cortinas: se abren tipo ventana al terminar de cargar */
+.preloader-curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: var(--noir);
+  z-index: 1;
+  transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.preloader-curtain--left  { left: 0; }
+.preloader-curtain--right { right: 0; }
+.preloader.is-hidden .preloader-curtain--left  { transform: translateX(-100%); }
+.preloader.is-hidden .preloader-curtain--right { transform: translateX(100%); }
+
 .preloader-mist {
   position: absolute;
   inset: 0;
+  z-index: 2;
+  transition: opacity 0.5s ease;
 }
+.preloader.is-hidden .preloader-mist { opacity: 0; }
 .mist-blob {
   position: absolute;
   width: 38vmax;
@@ -1672,13 +1688,15 @@ em { font-style: normal; font-family: var(--font-serif); }
 
 .preloader-logo {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 190px;
   max-width: 60vw;
   opacity: 0;
   filter: blur(6px);
   animation: preloaderLogoIn 1.5s ease forwards 0.35s;
+  transition: opacity 0.5s ease;
 }
+.preloader.is-hidden .preloader-logo { opacity: 0; }
 
 @keyframes preloaderLogoIn {
   0%   { opacity: 0; transform: scale(0.85); filter: blur(6px); }
@@ -1687,6 +1705,8 @@ em { font-style: normal; font-family: var(--font-serif); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .preloader, .preloader-logo, .mist-blob { animation: none !important; transition: opacity 0.4s ease !important; }
+  .preloader, .preloader-logo, .mist-blob, .preloader-curtain { animation: none !important; transition: opacity 0.4s ease !important; }
   .preloader-logo { opacity: 1; filter: none; }
+  .preloader.is-hidden .preloader-curtain--left,
+  .preloader.is-hidden .preloader-curtain--right { transform: none; opacity: 0; }
 }
